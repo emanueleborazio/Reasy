@@ -1,14 +1,16 @@
-<div *ngFor='let user of users$' style="text-align: center;">
+<!--<div *ngFor='let user of users$' style="text-align: center;">-->  
+<div><!---->
   <h1>
     Reasy
   </h1>
   <h2>
-    elenco degli utenti:
+   
+    mostra elenco utenti
+
   </h2>
-  <h3>
-    {{user.id}} - {{user.username}}  
-  
-  </h3>
+  <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="login()">login</button>
+  <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="elencoUtenti()">utenti</button>
+
 </div>
 
 <router-outlet></router-outlet>
