@@ -17,7 +17,13 @@
     <!-- Login Form -->
     <h2 class="textblue">{{nameResturant}}</h2>
 
-    <h3>Menù</h3>
+    <div *ngIf="!showQr">
+        <h3>Menù</h3>
+    </div>
+    <div *ngIf="showQr">
+        <h3>QR code personale</h3>
+    </div>
+   
     <div *ngIf="!imAuthorized && !showQr" >
     <form>
         <div *ngFor='let menu of menulist$' class="textMod">
@@ -33,12 +39,12 @@
         </form>
     </div>
     <div *ngIf="showQr">
-        <qrcode [level]="1" [qrvalue]="'QR Code String'"></qrcode>
+        <qrcode [level]="1" [qrvalue]="myQr"></qrcode>
     </div>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <div >
+      <div *ngIf="!showQr">
         <input type="submit" class="fadeIn fourth" value="Richiedi Autorizzazione" (click)="autorizzazione()">
       </div>
       <a class="underlineHover" onClick="javascript:history.back()">indietro</a>

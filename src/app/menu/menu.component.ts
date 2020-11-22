@@ -18,7 +18,8 @@ export class MenuComponent implements OnInit {
   imAuthorized: boolean;
   showQr: boolean;
 
-  myQr: string;
+  myQr: string = "Ciao";
+  
 
 
   constructor(
@@ -44,10 +45,6 @@ export class MenuComponent implements OnInit {
       }
     });
 
-  }
-
-  autorizzazione(){
-    
     this.dataService.getMyQr().subscribe(
       (res) => {
         this.myQr = res;
@@ -56,6 +53,12 @@ export class MenuComponent implements OnInit {
       (err) => console.log(err)
     );
     
+
+  }
+
+  autorizzazione(){
+    
+   
     this.showQr = true
     console.log("my qr: "+this.myQr)
     

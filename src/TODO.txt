@@ -1,0 +1,1 @@
+creare nuovo component per mostrare il qr code in quanto
