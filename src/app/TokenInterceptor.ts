@@ -11,7 +11,7 @@ export class TokenInterceptor implements HttpInterceptor {
    
   
   
-   let userToken = sessionStorage.getItem('token');
+   let userToken = localStorage.getItem('token');
    console.log("user Token: ",userToken)
 
    const modifiedReq = req.clone({ 

@@ -20,7 +20,9 @@ export class HomeComponent implements OnInit {
   password: string = "";
   errorEmpty: boolean = false;
   errorAccess: boolean = false;
+  statuSearch: boolean = false;
   personalToken: string = null;
+  account: Login;
 
   constructor(
     private dataService: DataService,
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.errorEmpty = false;
-
+    this.statuSearch = false;
 
 
 
@@ -45,16 +47,28 @@ export class HomeComponent implements OnInit {
 
   login(){
     //todo fare cotrolli username o pw vuoti
-
+    this.statuSearch = true;
     if (this.username === "" || this.password === "") {
       this.errorEmpty = true;
     } else {
       console.log("username "+this.username)
       console.log("pw "+this.password)
       
-      this.dataService.postSignIn(this.username, this.password);
-      this.timeout(2000)
+      this.dataService.postSignIn(this.username, this.password).subscribe({
+        next: (response: Login) => {
+          this.account = response
+          localStorage.setItem('token', this.account.accessToken)
+          this.statuSearch = false;
+          
+        }
+      });
+      
+
       this.router.navigate(['lista']);
+      
+      
+
+      
       
 
     }

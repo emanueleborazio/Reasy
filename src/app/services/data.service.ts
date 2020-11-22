@@ -69,29 +69,15 @@ export class DataService {
       }
   */
 
- postSignIn(username, password){
-
- this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
+ postSignIn(username, password): Observable<Login>{
+  
+   return this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
       {
         "username":username,
         "password":password
-      })
-      .subscribe(
-          (val) => {
-              console.log("POST call successful value returned in body", 
-                          val);
-              
-              sessionStorage.setItem('token',val.accessToken)
-              
-          },
-          response => {
-              console.log("POST call in error", response);
-              return response;
+      });
+      
 
-          },
-          () => {
-              console.log("The POST observable is now completed.");
-          });
   }
 
 /*
