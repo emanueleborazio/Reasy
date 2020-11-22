@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Resturant } from '../resturant.model';
 import { DataService } from '../services/data.service';
 
@@ -10,9 +11,13 @@ import { DataService } from '../services/data.service';
 export class ResturantListComponent implements OnInit {
   resturantView: boolean = false
   resturantList$: Resturant[];
+  codeResturant: string;
 
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private readonly router: Router
+    ) { }
 
   ngOnInit(): void {
 
@@ -24,6 +29,13 @@ export class ResturantListComponent implements OnInit {
    //  }
 
     
+  }
+
+  codeResturantOnKey(event) { this.codeResturant = event.target.value; }
+  
+
+  cerca(){
+    this.router.navigate(['menu/'+this.codeResturant]);
   }
 
 }

@@ -18,7 +18,7 @@
       <!-- Login Form -->
       <form>
         <div *ngFor='let resturant of resturantList$'>
-            {{resturant.name}}
+          <a class="nav-link" routerLink="/menu/{{resturant.qrcode}}" routerLinkActive="active" > {{resturant.name}} </a>
         </div>
       </form>
 

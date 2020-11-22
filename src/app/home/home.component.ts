@@ -58,13 +58,20 @@ export class HomeComponent implements OnInit {
         next: (response: Login) => {
           this.account = response
           localStorage.setItem('token', this.account.accessToken)
+          localStorage.setItem('role',this.account.roles[0])
           this.statuSearch = false;
           
         }
       });
       
+      console.log("ruolo: "+ localStorage.getItem('role'))
 
-      this.router.navigate(['lista']);
+      if(localStorage.getItem('role')==='ROLE_UTENTE'){
+        this.router.navigate(['lista']);
+      }
+      if(localStorage.getItem('role')==='ROLE_RISTORATORE'){
+        this.router.navigate(['editMenu']);
+      }
       
       
 
