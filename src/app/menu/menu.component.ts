@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
     this.dataService.getMyQr().subscribe(
       (res) => {
         this.myQr = res;
-        this.imAuthorized = true;
+       // this.imAuthorized = true;
       },
       (err) => console.log(err)
     );

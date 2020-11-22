@@ -18,14 +18,14 @@
     <h2 class="textblue">{{nameResturant}}</h2>
 
     <h3>Menù</h3>
-    <div *ngIf="!imAuthorized">
+    <div *ngIf="!imAuthorized && !showQr" >
     <form>
         <div *ngFor='let menu of menulist$' class="textMod">
              {{menu.name}} - {{menu.price}} 
           </div> 
     </form>
     </div>
-    <div *ngIf="imAuthorized">
+    <div *ngIf="imAuthorized" >
         <form>
             <div *ngFor='let menu of menulist$' class="textMod">
                  {{menu.name}} - {{menu.price}} ordinami!
@@ -33,12 +33,7 @@
         </form>
     </div>
     <div *ngIf="showQr">
-    <ngx-qrcode
-  [elementType]="elementType"
-  [errorCorrectionLevel]="correctionLevel"
-  [value]="value"
-  alt="Demo QR Code"
-  cssClass="bshadow"></ngx-qrcode>
+        <qrcode [level]="1" [qrvalue]="'QR Code String'"></qrcode>
     </div>
 
     <!-- Remind Passowrd -->

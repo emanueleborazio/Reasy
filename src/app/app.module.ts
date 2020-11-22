@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { EditResturantMenuComponent } from './edit-resturant-menu/edit-resturant-menu.component';
 import { MenuComponent } from './menu/menu.component';
-import { FormsModule } from '@angular/forms';
+import { AnQrcodeModule } from 'an-qrcode';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    
+    AnQrcodeModule,
   ],
   providers: [
     //DataService
