@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Login } from '../login.model';
+import { Menu } from '../menu.model';
 import { Message } from '../message.model';
 import { Resturant } from '../resturant.model';
 import { User } from '../user.model';
@@ -25,6 +26,7 @@ export class DataService {
   apiUrlSignIn = '/api/auth/signin';
   apiUrlResturantList = '/store/stores';
   apiUrlMenu = '/store/qrcode/'; 
+  apiUrlGetMyQr ='/user/qrcode';
 
   postSignUP(): Observable<any> {
     return this.http.post<Message>(this.urlBase + this.apiUrlSignUp, {
@@ -56,11 +58,13 @@ export class DataService {
   }
 
   getMenuByQr(code): Observable<any> {
-    return this.http.get<Resturant[]>(this.urlBase + this.apiUrlMenu + code);
+    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenu + code);
   }
   
 
-
+  getMyQr(): Observable<any>{
+    return this.http.get<any>(this.urlBase + this.apiUrlGetMyQr)
+  }
 
 
 }

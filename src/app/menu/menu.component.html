@@ -15,17 +15,37 @@
     </div>
 
     <!-- Login Form -->
-    <h2>Menù</h2>
+    <h2 class="textblue">{{nameResturant}}</h2>
+
+    <h3>Menù</h3>
+    <div *ngIf="!imAuthorized">
     <form>
-        <div *ngFor='let menu of menulist$'>
+        <div *ngFor='let menu of menulist$' class="textMod">
              {{menu.name}} - {{menu.price}} 
           </div> 
     </form>
-
-
+    </div>
+    <div *ngIf="imAuthorized">
+        <form>
+            <div *ngFor='let menu of menulist$' class="textMod">
+                 {{menu.name}} - {{menu.price}} ordinami!
+              </div> 
+        </form>
+    </div>
+    <div *ngIf="showQr">
+    <ngx-qrcode
+  [elementType]="elementType"
+  [errorCorrectionLevel]="correctionLevel"
+  [value]="value"
+  alt="Demo QR Code"
+  cssClass="bshadow"></ngx-qrcode>
+    </div>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
+      <div >
+        <input type="submit" class="fadeIn fourth" value="Richiedi Autorizzazione" (click)="autorizzazione()">
+      </div>
       <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
     </div>
 

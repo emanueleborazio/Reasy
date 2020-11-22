@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { EditResturantMenuComponent } from './edit-resturant-menu/edit-resturant-menu.component';
 import { MenuComponent } from './menu/menu.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

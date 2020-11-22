@@ -11,8 +11,14 @@ import { DataService } from '../services/data.service';
 })
 export class MenuComponent implements OnInit {
 
-  qrResturant: string;  
+  qrResturant: string;
+  nameResturant: any;  
   menulist$: Menu[];
+
+  imAuthorized: boolean;
+  showQr: boolean;
+
+  myQr: string;
 
 
   constructor(
@@ -24,6 +30,11 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe((params: Params) => this.qrResturant = params['id']);
+    this.route.params.subscribe((params: Params) => this.nameResturant = params['name']);
+  
+    this.imAuthorized = false;
+    this.showQr = false
+
 
     console.log("scelto il ristorante con qr code: "+this.qrResturant)
     
@@ -33,30 +44,22 @@ export class MenuComponent implements OnInit {
       }
     });
 
-    /*
-    this.domandaNido$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.domandaService.getDomandaNidoById(parseInt(params.get('id')))
-      )
+  }
+
+  autorizzazione(){
+    
+    this.dataService.getMyQr().subscribe(
+      (res) => {
+        this.myQr = res;
+        this.imAuthorized = true;
+      },
+      (err) => console.log(err)
     );
-    // richiamo il dettaglio della domanda sul service della domanda
-    this.domandaNido$.subscribe({
-      next: (data: DomandaNido) => {
-        this.domandaNido = data;
-        console.log('domandaNido: ' + JSON.stringify(this.domandaNido));
-        this.statusSearchDomanda = false;
-      },
-      error: (data: SrvError) => {
-        console.log('Errore: ' + JSON.stringify(data));
-        this.statusSearchDomanda = false;
-
-        this.globalError = true;
-        setTimeout(() => {
-          this.globalError = false;
-        }, 9000);
-      },
-    });
-*/
-
+    
+    this.showQr = true
+    console.log("my qr: "+this.myQr)
+    
+    
   }
 
 }
