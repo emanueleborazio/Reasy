@@ -7,20 +7,19 @@ import { DataService } from './services/data.service';
 import { TokenInterceptor } from './TokenInterceptor';
 import { ResturantListComponent } from './resturant-list/resturant-list.component';
 import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResturantListComponent
+    ResturantListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot([
-    //{ path: '', component: AppComponent },
-      { path: 'lista', component: ResturantListComponent },
-    ])
+    
   ],
   providers: [
     //DataService

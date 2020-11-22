@@ -1,5 +1,6 @@
 import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Login } from '../login.model';
 import { Message } from '../message.model';
@@ -12,7 +13,10 @@ import { User } from '../user.model';
 @Injectable()
 export class DataService {
 
-  constructor(protected http: HttpClient) {
+  constructor(
+    protected http: HttpClient,
+    private readonly router: Router
+    ) {
   }
 
   urlBase = 'http://reasy-be.herokuapp.com'
@@ -20,13 +24,13 @@ export class DataService {
   apiUrlSignUp = '/api/auth/signup';
   apiUrlSignIn = '/api/auth/signin';
   apiUrlResturantList = '/store/stores/';
-  
+
   postSignUP(): Observable<any> {
-    return this.http.post<Message>(this.urlBase + this.apiUrlSignUp,{
-      "username":"luiggggi@gmail.com",
-      "mobile":"3847586788",
-      "password":"12345678",
-      "role":["ristoratore"]
+    return this.http.post<Message>(this.urlBase + this.apiUrlSignUp, {
+      "username": "luiggggi@gmail.com",
+      "mobile": "3847586788",
+      "password": "12345678",
+      "role": ["ristoratore"]
     });
   }
   /*
@@ -36,39 +40,80 @@ export class DataService {
       "password":"12345678"
     })
   }
-*/
-  
+
+  */
   getUsers(): Observable<any> {
     return this.http.get<User[]>(this.urlBase + this.apiUrlElencoUtenti);
   }
+  /*
+    postSignIn(username, password) {
+  
+      this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
+          {
+            "username":username,
+            "password":password
+          })
+          .subscribe(
+              (val) => {
+                  console.log("POST call successful value returned in body", 
+                              val);
+                  sessionStorage.setItem('token',val.accessToken)
+              },
+              response => {
+                  console.log("POST call in error", response);
+  
+              },
+              () => {
+                  console.log("The POST observable is now completed.");
+              });
+      }
+  */
 
-  postSignIn(username, password) {
+ postSignIn(username, password){
 
-    this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
-        {
-          "username":username,
-          "password":password
-        })
-        .subscribe(
-            (val) => {
-                console.log("POST call successful value returned in body", 
-                            val);
-                sessionStorage.setItem('token',val.accessToken)
-            },
-            response => {
-                console.log("POST call in error", response);
+ this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
+      {
+        "username":username,
+        "password":password
+      })
+      .subscribe(
+          (val) => {
+              console.log("POST call successful value returned in body", 
+                          val);
+              
+              sessionStorage.setItem('token',val.accessToken)
+              
+          },
+          response => {
+              console.log("POST call in error", response);
+              return response;
 
-            },
-            () => {
-                console.log("The POST observable is now completed.");
-            });
-    }
+          },
+          () => {
+              console.log("The POST observable is now completed.");
+          });
+  }
+
+/*
+
+  postSignIn(username, password): Observable<Login> {
+
+    const account = this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
+      {
+        "username": username,
+        "password": password
+      })
+
+    return account;
+
+  }
+
+*/
 
 
-
-    getResturantList(): Observable<any> {
-      return this.http.get<Resturant[]>(this.urlBase + this.apiUrlResturantList);
-    }
+  getResturantList(): Observable<any> {
+    return this.http.get<Resturant[]>(this.urlBase + this.apiUrlResturantList);
+  }
 
 
 

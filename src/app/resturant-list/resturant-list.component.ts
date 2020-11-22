@@ -16,11 +16,11 @@ export class ResturantListComponent implements OnInit {
 
   ngOnInit(): void {
 
-     if(sessionStorage.getItem("restView")==="si"){
+   //  if(sessionStorage.getItem("restView")==="si"){
       this.resturantView = true;
       this.dataService.getResturantList()
        .subscribe(data=> this.resturantList$ = data)
-     }
+   //  }
 
     
   }
