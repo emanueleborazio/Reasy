@@ -17,25 +17,37 @@ export class ResturantListComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private readonly router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
-   //  if(sessionStorage.getItem("restView")==="si"){
-     
-      this.resturantView = true;
-      this.dataService.getResturantList()
-       .subscribe(data=> this.resturantList$ = data)
-   //  }
+    //  if(sessionStorage.getItem("restView")==="si"){
+
+    this.resturantView = true;
+    this.dataService.getResturantList()
+      .subscribe(data => this.resturantList$ = data)
+    //  }
+
+    this.dataService.getMyQr().subscribe(
+      (res) => {
+        
+        console.log("res: "+res)
+        localStorage.setItem("myQr",res)
+        // this.imAuthorized = true;
+      },
+      (err) => console.log(err)
+    );
 
     
+
+
   }
 
   codeResturantOnKey(event) { this.codeResturant = event.target.value; }
-  
 
-  cerca(){
-    this.router.navigate(['menu/'+this.codeResturant]);
+
+  cerca() {
+    this.router.navigate(['menu/' + this.codeResturant]);
   }
 
 }
