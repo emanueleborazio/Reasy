@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
-import { EditResturantMenuComponent } from './edit-resturant-menu/edit-resturant-menu.component';
+import { ControlMenuComponent } from './control-menu/control-menu.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ResturantListComponent } from './resturant-list/resturant-list.component';
@@ -8,7 +8,7 @@ import { ResturantListComponent } from './resturant-list/resturant-list.componen
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'lista', component: ResturantListComponent },
-  { path: 'modificaMenu', component: EditResturantMenuComponent },
+  { path: 'ristoratore', component:  ControlMenuComponent},
   { path: 'menu/:id/:name', component: MenuComponent }
 ];
 

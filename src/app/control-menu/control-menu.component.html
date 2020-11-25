@@ -1,0 +1,65 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!---------------------------->
+<!--------prima view---------->
+<!---------------------------->
+<div *ngIf="!editView">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+    </div>
+    <!-- Login Form -->
+    <form>
+      <input type="submit" class="fadeIn fourth" value="Gestisci il tuo menù" (click)="editMenu()">
+      <input type="submit" class="fadeIn fourth" value="Autorizza con QRcode" (click)="autorizzaQr()">
+      <input type="submit" class="fadeIn fourth" value="Monitora gli ingressi" (click)="storicoIngressi()">
+      <input type="submit" class="fadeIn fourth" value="Storico degli ordini" (click)="storicoOrdini()">
+    </form>
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!---------------------------->
+<!--modifica il proprio menù-->
+<!---------------------------->
+
+
+<div *ngIf="editView">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+    </div>
+
+    <!-- Login Form --> 
+       <h3>Menù</h3>    
+    <form>
+        <div *ngFor='let menu of menulist$' class="textMod">
+             {{menu.name}} - {{menu.price}} 
+          </div> 
+    </form>
+    
+    
+    
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+
+  </div>
+</div>
+</div>

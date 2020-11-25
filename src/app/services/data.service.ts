@@ -21,11 +21,13 @@ export class DataService {
   }
 
   urlBase = 'http://reasy-be.herokuapp.com'
+  //urlBase = 'http://80.211.235.235:8082'
   apiUrlElencoUtenti = '/user/users';
   apiUrlSignUp = '/api/auth/signup';
   apiUrlSignIn = '/api/auth/signin';
   apiUrlResturantList = '/store/stores';
-  apiUrlMenu = '/store/qrcode/'; 
+  apiUrlMenu = '/store/menu';
+  apiUrlMenuByQr = '/store/qrcode/'; 
   apiUrlGetMyQr ='/user/qrcode';
 
   postSignUP(): Observable<any> {
@@ -58,9 +60,12 @@ export class DataService {
   }
 
   getMenuByQr(code): Observable<any> {
-    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenu + code);
+    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenuByQr + code);
   }
   
+  getMenu(): Observable<any> {
+    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenu);
+  }
 
   getMyQr(): Observable<any>{
     return this.http.get<any>(this.urlBase + this.apiUrlGetMyQr)

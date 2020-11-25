@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
     });
 
     
-    
+    //todo avviare servizio che vede se sono autorizzato
 
   }
 
@@ -57,7 +57,11 @@ export class MenuComponent implements OnInit {
    
     this.showQr = true
     console.log("my qr: "+this.myQr)
+
     
+    
+
+
     
   }
 

@@ -34,20 +34,12 @@ export class HomeComponent implements OnInit {
 
 
 
-
   }
-  /*
-    login(){
-      this.dataService.postSignIn()
-     .subscribe((data: Login) => this.login$ = data )
   
-      sessionStorage.setItem('token',this.login$.accessToken)
-    }
-  */
 
   login(){
     //todo fare cotrolli username o pw vuoti
-    this.statuSearch = true;
+    
     if (this.username === "" || this.password === "") {
       this.errorEmpty = true;
     } else {
@@ -59,8 +51,6 @@ export class HomeComponent implements OnInit {
           this.account = response
           localStorage.setItem('token', this.account.accessToken)
           localStorage.setItem('role',this.account.roles[0])
-          this.statuSearch = false;
-          
         }
       });
       
@@ -70,7 +60,11 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['lista']);
       }
       if(localStorage.getItem('role')==='ROLE_RISTORATORE'){
-        this.router.navigate(['editMenu']);
+        this.router.navigate(['ristoratore']);
+      }
+      if(localStorage.getItem('role')==='ROLE_CUCINA'){
+        //TODO
+        //this.router.navigate(['']);
       }
       
       
