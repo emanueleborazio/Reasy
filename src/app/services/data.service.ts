@@ -60,14 +60,14 @@ utente : Login;
 */
 
 getSignIn(username, password) {
-  debugger
+  
   return this.http.post<any>(`http://80.211.235.235:8082/api/auth/signin`, { username, password })
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           
-          localStorage.setItem('user', JSON.stringify(user.username))
-          localStorage.setItem('token', JSON.stringify(user.accessToken))
-          localStorage.setItem('role',JSON.stringify(user.roles[0]))
+          localStorage.setItem('user', user.username)
+          localStorage.setItem('token', user.accessToken)
+          localStorage.setItem('role',user.roles[0])
           return user;
       }));
 }

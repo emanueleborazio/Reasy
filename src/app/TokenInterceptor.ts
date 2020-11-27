@@ -9,16 +9,19 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
    
-  
-  
-   let userToken = localStorage.getItem('token');
-   console.log("user Token: ",userToken)
-  if(userToken != null){
-   const modifiedReq = req.clone({ 
-     headers: req.headers.set('Authorization', `Bearer ${userToken}`),
-   });
-   return next.handle(modifiedReq);
-  }
+    let userToken = 'none'
+    console.log("Interceptor start")
+    if(localStorage.getItem('token') !== undefined){
+      console.log("Interceptor valore di sessione settato")
+      userToken = localStorage.getItem('token');
+      console.log("user Token: ",userToken)
+
+      const modifiedReq = req.clone({ 
+        headers: req.headers.set('Authorization', `Bearer ${userToken}`),
+      });
+      return next.handle(modifiedReq);
+    }
+
 
 
   }
