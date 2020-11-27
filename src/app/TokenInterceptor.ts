@@ -13,12 +13,12 @@ export class TokenInterceptor implements HttpInterceptor {
   
    let userToken = localStorage.getItem('token');
    console.log("user Token: ",userToken)
-
+  if(userToken != null){
    const modifiedReq = req.clone({ 
      headers: req.headers.set('Authorization', `Bearer ${userToken}`),
    });
    return next.handle(modifiedReq);
-
+  }
 
 
   }

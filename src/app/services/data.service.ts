@@ -7,12 +7,14 @@ import { Menu } from '../menu.model';
 import { Message } from '../message.model';
 import { Resturant } from '../resturant.model';
 import { User } from '../user.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 @Injectable()
 export class DataService {
+utente : Login;
 
   constructor(
     protected http: HttpClient,
@@ -20,8 +22,8 @@ export class DataService {
     ) {
   }
 
-  urlBase = 'http://reasy-be.herokuapp.com'
-  //urlBase = 'http://80.211.235.235:8082'
+  //urlBase = 'http://reasy-be.herokuapp.com'
+  urlBase = 'http://80.211.235.235:8082'
   apiUrlElencoUtenti = '/user/users';
   apiUrlSignUp = '/api/auth/signup';
   apiUrlSignIn = '/api/auth/signin';
@@ -43,7 +45,7 @@ export class DataService {
     return this.http.get<User[]>(this.urlBase + this.apiUrlElencoUtenti);
   }
 
-
+/*
  postSignIn(username, password): Observable<Login>{
   
    return this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
@@ -54,6 +56,22 @@ export class DataService {
       
 
   }
+
+*/
+
+getSignIn(username, password) {
+  debugger
+  return this.http.post<any>(`http://80.211.235.235:8082/api/auth/signin`, { username, password })
+      .pipe(map(user => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          
+          localStorage.setItem('user', JSON.stringify(user.username))
+          localStorage.setItem('token', JSON.stringify(user.accessToken))
+          localStorage.setItem('role',JSON.stringify(user.roles[0]))
+          return user;
+      }));
+}
+
 
   getResturantList(): Observable<any> {
     return this.http.get<Resturant[]>(this.urlBase + this.apiUrlResturantList);

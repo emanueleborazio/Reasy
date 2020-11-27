@@ -15,17 +15,19 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" (keyup)="usernameOnKey($event)">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" (keyup)="passwordOnKey($event)">
-      <input type="submit" class="fadeIn fourth" value="Log In" (click)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+      <input type="text" formControlName="username" id="login" class="fadeIn second" name="login" placeholder="login" >
+      <input type="text" formControlName="password" id="password" class="fadeIn third" name="login" placeholder="password" >
+      <button type="submit" class="fadeIn fourth" >Logn in</button>
+      </div>
     </form>
 
     <div *ngIf='errorEmpty' class="alert alert-warning" role="alert">
       l'Username o la Password sono vuoti
     </div>
     <div *ngIf='errorAccess' class="alert alert-error" role="alert">
-        l'Username o la Password sono vuoti
+        l'Username o la Password sono errati
       </div>
 
     <!-- Remind Passowrd -->
