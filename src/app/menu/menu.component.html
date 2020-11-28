@@ -3,7 +3,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-<div *ngIf='!authOrder'>
+<div *ngIf='!authOrder && !showSummary'>
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -58,7 +58,7 @@
 <!---------------------------------->
 <!-----------ordinazione------------>
 <!---------------------------------->
-<div *ngIf="authOrder">
+<div *ngIf="authOrder && !showSummary">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -116,3 +116,57 @@
   </div>
 </div>
 </div>
+
+<!---------------------------------->
+<!-----------storico---------------->
+<!---------------------------------->
+<div *ngIf="showSummary">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+  
+      <!-- Login Form -->
+      <h2 class="textblue">{{nameResturant}}</h2>
+  
+      
+      <h3>Riepilogo</h3>
+    
+      <form>
+          <div  >
+          
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Quantità</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let menu of menulist$; let i = index;'>
+                  <th *ngIf="quantity[i]>0" scope="row">{{i+1}}</th>
+                  <td *ngIf="quantity[i]>0">{{menu.name}}</td>
+                  <td *ngIf="quantity[i]>0">{{quantity[i]}}</td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+      </form>
+      
+    
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+  
+    </div>
+  </div>
+  </div>

@@ -21,11 +21,12 @@ export class MenuComponent implements OnInit {
   showQr: boolean;
   authOrder: boolean = false;
   errorAuth : boolean =false;
+  showSummary: boolean = false;
 
   myQr: string;
 
   //TODO inizializzare in modo corretto l'array
-  quantity: number[]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  quantity: number[]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
   order: Order[] = [];
   x : number = 0 ;
@@ -55,7 +56,8 @@ export class MenuComponent implements OnInit {
 
     this.authOrder = false;
     this.imAuthorized = false;
-    this.showQr = false
+    this.showQr = false;
+    this.showSummary=false;
 
     this.myQr = localStorage.getItem("myQr")
 
@@ -111,7 +113,9 @@ export class MenuComponent implements OnInit {
       next: (response: Boolean) => {
         if(response){
           this.authOrder = true;
+          console.log("UTENTE autorizzato")
         }else{
+          console.log("UTENTE NON autorizzato")
           this.authOrder = false;
           this.errorAuth = true
         }
@@ -129,6 +133,7 @@ export class MenuComponent implements OnInit {
     console.log("ordine in corso: "+this.order)
     this.dataService.sendOrder(this.idResturant,this.order);
     console.log("ordine inviato")
+    this.showSummary= true
 
   }
 
