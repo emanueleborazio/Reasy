@@ -31,9 +31,9 @@ export class ResturantListComponent implements OnInit {
     this.dataService.getMyQr().subscribe(
       (res) => {
         
-        console.log("res: "+res)
+        console.log("qrCode utente: "+res)
         localStorage.setItem("myQr",res)
-        // this.imAuthorized = true;
+       
       },
       (err) => console.log(err)
     );

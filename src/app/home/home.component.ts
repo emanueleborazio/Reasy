@@ -40,16 +40,16 @@ export class HomeComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-  });
+    });
 
 
 
 
   }
-  
+
   get f() { return this.loginForm.controls; }
 
-  onSubmit(){
+  onSubmit() {
     //todo fare cotrolli username o pw vuoti
     /*
     if (this.username === "" || this.password === "") {
@@ -67,38 +67,38 @@ export class HomeComponent implements OnInit {
         }
       });
       */
-     this.dataService.getSignIn(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe({
-                next: () => {
-                    // get return url from query parameters or default to home page
-                    
-                },
-                error: error => {
-                  
-                  this.errorAccess = true;
-                }
-            });
+    this.dataService.getSignIn(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          // get return url from query parameters or default to home page
+          console.log("ruolo: " + localStorage.getItem('role'))
 
-            console.log("ruolo: "+ localStorage.getItem('role'))
+          if (localStorage.getItem('role') === 'ROLE_UTENTE') {
+            this.router.navigate(['lista']);
+          }
+          if (localStorage.getItem('role') === 'ROLE_RISTORATORE') {
+            this.router.navigate(['ristoratore']);
+          }
+          if (localStorage.getItem('role') === 'ROLE_CUCINA') {
+            //TODO
+            //this.router.navigate(['']);
+          }
+        },
+        error: error => {
 
-            if(localStorage.getItem('role')==='ROLE_UTENTE'){
-              this.router.navigate(['lista']);
-            }
-            if(localStorage.getItem('role')==='ROLE_RISTORATORE'){
-              this.router.navigate(['ristoratore']);
-            }
-            if(localStorage.getItem('role')==='ROLE_CUCINA'){
-              //TODO
-              //this.router.navigate(['']);
-            }
-     
+          this.errorAccess = true;
+        }
+      });
 
-      
-      
 
-   // }
-      
+
+
+
+
+
+    // }
+
 
   }
   //usernameOnKey(event) { this.username = event.target.value; }

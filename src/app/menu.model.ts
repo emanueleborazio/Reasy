@@ -5,4 +5,5 @@ export class Menu{
     name: string;
     price: number;
     menu: Voce[];
+    enabled: boolean;
 }

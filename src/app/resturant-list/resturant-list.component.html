@@ -4,7 +4,7 @@
 
 
 
-  <div *ngIf='resturantView' class="wrapper fadeInDown">
+  <div *ngIf="resturantView" class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
   
@@ -18,11 +18,11 @@
       <!-- Login Form -->
       <form>
         <div *ngFor='let resturant of resturantList$'>
-          <a class="nav-link" routerLink="/menu/{{resturant.qrcode}}/{{resturant.name}}" routerLinkActive="active" > {{resturant.name}} </a>
+          <a class="nav-link" routerLink="/menu/{{resturant.qrcode}}/{{resturant.name}}/{{resturant.id}}" routerLinkActive="active" > {{resturant.name}} </a>
         </div>
       </form>
 
-      <div *ngIf='errorEmpty' class="alert alert-warning" role="alert">
+      <div *ngIf="errorEmpty" class="alert alert-warning" role="alert">
         l'Username o la Password sono vuoti
       </div>
   

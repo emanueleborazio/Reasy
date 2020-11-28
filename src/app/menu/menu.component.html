@@ -3,7 +3,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-
+<div *ngIf='!authOrder'>
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -24,22 +24,23 @@
         <h3>QR code personale</h3>
     </div>
    
-    <div *ngIf="!imAuthorized && !showQr" >
+    <div *ngIf="!showQr" >
     <form>
         <div *ngFor='let menu of menulist$' class="textMod">
              {{menu.name}} - {{menu.price}} 
           </div> 
     </form>
     </div>
-    <div *ngIf="imAuthorized" >
-        <form>
-            <div *ngFor='let menu of menulist$' class="textMod">
-                 {{menu.name}} - {{menu.price}} ordinami!
-              </div> 
-        </form>
-    </div>
     <div *ngIf="showQr">
+      <div>
         <qrcode [level]="1" [qrvalue]="myQr"></qrcode>
+      </div>
+      <div>
+        <input type="submit" class="fadeIn fourth" value="Ordina" (click)="checkAuthorization()">
+      </div>
+    </div>
+    <div *ngIf='errorAuth' class="alert alert-warning" role="alert">
+      Richiedi al ristoratore di autorizzarti
     </div>
 
     <!-- Remind Passowrd -->
@@ -51,4 +52,67 @@
     </div>
 
   </div>
+</div>
+</div>
+
+<!---------------------------------->
+<!-----------ordinazione------------>
+<!---------------------------------->
+<div *ngIf="authOrder">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+    </div>
+
+    <!-- Login Form -->
+    <h2 class="textblue">{{nameResturant}}</h2>
+
+    
+    <h3>Menù</h3>
+  
+    <form>
+        <div  >
+        
+          <table class="table" style="text-align:center;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Prezzo</th>
+                <th scope="col" ></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let menu of menulist$; let i = index'>
+                <th scope="row">{{i+1}}</th>
+                <td>{{menu.name}}</td>
+                <td>{{menu.price}}</td>
+                <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(menu,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(menu,i)">-</button></td>
+              </tr>
+             
+            </tbody>
+          </table>
+        
+       
+        </div> 
+
+    </form>
+    
+  
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <div *ngIf="!showQr">
+        <input type="submit" class="fadeIn fourth" value="Invia Ordine" (click)="sendOrder()">
+      </div>
+      <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+
+  </div>
+</div>
 </div>

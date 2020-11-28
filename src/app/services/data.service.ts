@@ -8,6 +8,7 @@ import { Message } from '../message.model';
 import { Resturant } from '../resturant.model';
 import { User } from '../user.model';
 import { map } from 'rxjs/operators';
+import { Order } from '../order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,10 @@ utente : Login;
   apiUrlMenu = '/store/menu';
   apiUrlMenuByQr = '/store/qrcode/'; 
   apiUrlGetMyQr ='/user/qrcode';
+  apiUrlGetAuth = '/user/authorized/';
+  apiUrlSendOrder = '/order/send/'
 
-  postSignUP(): Observable<any> {
+  getSignUP(): Observable<any> {
     return this.http.post<Message>(this.urlBase + this.apiUrlSignUp, {
       "username": "luiggggi@gmail.com",
       "mobile": "3847586788",
@@ -45,23 +48,11 @@ utente : Login;
     return this.http.get<User[]>(this.urlBase + this.apiUrlElencoUtenti);
   }
 
-/*
- postSignIn(username, password): Observable<Login>{
-  
-   return this.http.post<Login>(this.urlBase + this.apiUrlSignIn,
-      {
-        "username":username,
-        "password":password
-      });
-      
 
-  }
-
-*/
 
 getSignIn(username, password) {
   
-  return this.http.post<any>(`http://80.211.235.235:8082/api/auth/signin`, { username, password })
+  return this.http.post<any>(this.urlBase + this.apiUrlSignIn, { username, password })
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           
@@ -87,6 +78,13 @@ getSignIn(username, password) {
 
   getMyQr(): Observable<any>{
     return this.http.get<any>(this.urlBase + this.apiUrlGetMyQr)
+  }
+  getAuthUser(idResturant): Observable<any> {
+    return this.http.get<any>(this.urlBase + this.apiUrlGetAuth + idResturant);
+  }
+
+  sendOrder(idResturant, order): Observable<any> {
+    return this.http.post<any[]>(this.urlBase + this.apiUrlSendOrder + idResturant, order);
   }
 
 
