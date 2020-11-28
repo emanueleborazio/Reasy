@@ -4,7 +4,7 @@
 <!---------------------------->
 <!--------prima view---------->
 <!---------------------------->
-<div *ngIf="!editView">
+<div *ngIf="!editMenuView && !editResturantView && !authUserView">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -14,12 +14,15 @@
       <h1>REASY</h1>
     </div>
     <!-- Login Form -->
+    
     <form>
+      <input type="submit" class="fadeIn fourth" value="Gestisci il tuo ristorante" (click)="editResturant()">
       <input type="submit" class="fadeIn fourth" value="Gestisci il tuo menù" (click)="editMenu()">
       <input type="submit" class="fadeIn fourth" value="Autorizza con QRcode" (click)="autorizzaQr()">
       <input type="submit" class="fadeIn fourth" value="Monitora gli ingressi" (click)="storicoIngressi()">
-      <input type="submit" class="fadeIn fourth" value="Storico degli ordini" (click)="storicoOrdini()">
+      <input type="submit" class="fadeIn fourth" value="Ordini" (click)="Ordini()">
     </form>
+   
     <!-- Remind Passowrd -->
     <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
@@ -34,7 +37,7 @@
 <!---------------------------->
 
 
-<div *ngIf="editView">
+<div *ngIf="editMenuView">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -48,9 +51,7 @@
     <!-- Login Form --> 
        <h3>Menù</h3>    
     <form>
-        <div *ngFor='let menu of menulist$' class="textMod">
-             {{menu.name}} - {{menu.price}} 
-          </div> 
+        <h3>...ancora da fare...</h3>
     </form>
     
     
@@ -63,3 +64,75 @@
   </div>
 </div>
 </div>
+
+<!------------------------------>
+<!--modifica il tuo ristorante-->
+<!------------------------------>
+
+
+<div *ngIf="editResturantView">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+  
+      <!-- Login Form --> 
+         <h3>Il tuo ristorante</h3>    
+      <form>
+        <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante" (keyup)="nameResturantOnKey($event)" >
+        <input type="text" id="Citta" class="fadeIn third" name="Citta" placeholder="Città" (keyup)="cityResturantOnKey($event)">
+        <input type="submit" class="fadeIn fourth" value="Conferma" (click)="editResturantButton()">
+      </form>
+      
+      
+      
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+  
+    </div>
+  </div>
+  </div>
+
+<!------------------------------>
+<!--mautorizza cliente---------->
+<!------------------------------>
+
+
+<div *ngIf="authUserView">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+  
+      <!-- Login Form --> 
+         <h3>Il tuo ristorante</h3>    
+      <form>
+        <input type="text" id="Auth" class="fadeIn second" name="Auth" placeholder="Codice qr del cliente" (keyup)="qrClienteOnKey($event)" >
+        <input type="text" id="Note" class="fadeIn second" name="Note" placeholder="Note" (keyup)="noteOnKey($event)" >
+        <input type="text" id="Day" class="fadeIn second" name="Day" placeholder="giorni" (keyup)="dayOnKey($event)" >
+        <input type="submit" class="fadeIn fourth" value="Autorizza" (click)="authUserButton()">
+      </form>
+      
+      
+      
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+  
+    </div>
+  </div>
+  </div>
+

@@ -24,7 +24,7 @@ export class ResturantListComponent implements OnInit {
     //  if(sessionStorage.getItem("restView")==="si"){
 
     this.resturantView = true;
-    this.dataService.getResturantList()
+    this.dataService.getStores()
       .subscribe(data => this.resturantList$ = data)
     //  }
 

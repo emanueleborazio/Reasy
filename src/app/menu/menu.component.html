@@ -33,6 +33,9 @@
     </div>
     <div *ngIf="showQr">
       <div>
+        <h3>{{myQr}}</h3>
+      </div>
+      <div>
         <qrcode [level]="1" [qrvalue]="myQr"></qrcode>
       </div>
       <div>
@@ -76,8 +79,7 @@
     <h3>Menù</h3>
   
     <form>
-        <div  >
-        
+        <div>
           <table class="table" style="text-align:center;">
             <thead>
               <tr>
@@ -94,13 +96,9 @@
                 <td>{{menu.price}}</td>
                 <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(menu,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(menu,i)">-</button></td>
               </tr>
-             
-            </tbody>
-          </table>
-        
-       
+           </tbody>
+          </table>      
         </div> 
-
     </form>
     
   
@@ -164,7 +162,7 @@
       <!-- Remind Passowrd -->
       <div id="formFooter">
         
-        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+        <a class="underlineHover" onClick="javascript:history.back()">effettua un nuovo ordine</a>
       </div>
   
     </div>

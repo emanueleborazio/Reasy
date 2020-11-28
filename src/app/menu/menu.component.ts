@@ -3,6 +3,7 @@ import { Router, ParamMap, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Menu } from '../menu.model';
 import { Order } from '../order.model';
+import { Resturant } from '../resturant.model';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class MenuComponent implements OnInit {
   nameResturant: any;  
   menulist$: Menu[];
   lista: Menu[];
+  listResturant: Resturant[];
 
   imAuthorized: boolean;
   showQr: boolean;
@@ -54,6 +56,14 @@ export class MenuComponent implements OnInit {
     console.log("qrResturant "+ this.qrResturant)
     console.log("nameResturant "+ this.nameResturant)
 
+    if(this.idResturant == undefined){
+
+      //TODO servizio che da qr ristorante da info come il nome
+      
+        
+
+    }
+
     this.authOrder = false;
     this.imAuthorized = false;
     this.showQr = false;
@@ -72,26 +82,7 @@ export class MenuComponent implements OnInit {
       
     });
 
-    
-        
-
-   //inizializzo a zero il vettore
-   /*
-   for(let i=0; i<10; i++){
-     this.quantity[i] = 0;
-   }
-  
-*/
    
-/*
-    for(let x of this.menulist$ ){
-      this.nVector.push(new Quantity(x.id,0))
-    }
-*/
-   
-
-   
-
     this.checkAuthorization()
     //todo avviare servizio che vede se sono autorizzato
 
@@ -114,17 +105,18 @@ export class MenuComponent implements OnInit {
         if(response){
           this.authOrder = true;
           console.log("UTENTE autorizzato")
-        }else{
-          console.log("UTENTE NON autorizzato")
-          this.authOrder = false;
-          this.errorAuth = true
         }
         
       
+      },error:()=>{
+        
+          console.log("UTENTE NON autorizzato")
+          this.authOrder = false;
+          this.errorAuth = true
+        
       }
     });
     
-   //this.authOrder = true;
 
   }
 
