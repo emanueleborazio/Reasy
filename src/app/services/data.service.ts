@@ -70,6 +70,7 @@ export class DataService {
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////
   //servizio per aggiungere una voce nel menu
   addItemMenu(item): Observable<any> {
+    debugger
     return this.http.post<any>(this.urlBase + this.apiUrlInsertItem, item);
   }
   //servizio per eliminare un item dal menu

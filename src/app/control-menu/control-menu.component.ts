@@ -33,6 +33,7 @@ export class ControlMenuComponent implements OnInit {
 
   menulist$: Menu[];
   itemList$: Item[];
+  
 
   constructor(
     private dataService: DataService,
@@ -138,10 +139,17 @@ export class ControlMenuComponent implements OnInit {
   }
 
   addItemButton(){
-    console.log("aggiungo il piatto")
-    let input = new FormData();
-    input.append('name',this.nameItem)
-    input.append('price',this.priceItem)
+   
+    var input = {
+      items:[
+        {
+          "name": this.nameItem,
+          "price": this.priceItem
+        }
+      ]
+    }
+  //  let input = new FormData();
+
 
     this.dataService.addItemMenu(input).subscribe((data: any) => {
       this.resData = data;
