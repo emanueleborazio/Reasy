@@ -50,15 +50,60 @@
 
     <!-- Login Form --> 
        <h3>Menù</h3>    
-    <form>
-        <h3>...ancora da fare...</h3>
+       <div *ngIf='deleteViewMessage' class="alert alert-success" role="alert">
+        Eliminato correttamente
+      </div>
+      <div *ngIf='errorDeleteViewMessage' class="alert alert-warning" role="alert">
+        Errore durante l'eliminazione
+      </div>
+      <div *ngIf='addViewMessage' class="alert alert-success" role="alert">
+        Piatto aggiunto
+      </div>
+      <div *ngIf='errorAddViewMessage' class="alert alert-warning" role="alert">
+        Errore durante aggiunta del piatto
+      </div>
+
+
+      <div *ngIf='!insertView'>
+       <form>
+        <div>
+          <table class="table" style="text-align:center;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Prezzo</th>
+                <th scope="col" ></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let menu of menulist$; let i = index'>
+                <th scope="row">{{i+1}}</th>
+                <td>{{menu.name}}</td>
+                <td>{{menu.price}}</td>
+                <td><button type="button" class="btn btn-danger btn-circle" (click)="deleteItem(menu.id)">Elimina</button></td>
+              </tr>
+           </tbody>
+          </table>      
+        </div> 
     </form>
-    
-    
+   </div>
+   <div *ngIf='insertView'>
+    <form>
+      <input type="text" id="nameItem" class="fadeIn second" name="nameItem" placeholder="Nome del piatto" (keyup)="nameItemOnKey($event)" >
+      <input type="text" id="price" class="fadeIn third" name="price" placeholder="Prezzo" (keyup)="priceItemOnKey($event)">
+      <input type="submit" class="fadeIn fourth" value="Conferma" (click)="addItemButton()">
+    </form>
+   </div> 
     
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      <div>
+        <input type="submit" class="fadeIn fourth" value="Aggiungi piatto" (click)="addItemView()">
+      </div>
+      <div>
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
     </div>
 
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Item } from '../item.model';
 import { Menu } from '../menu.model';
 import { DataService } from '../services/data.service';
 
@@ -12,7 +13,17 @@ export class ControlMenuComponent implements OnInit {
   editMenuView: boolean;
   editResturantView: boolean;
   authUserView: boolean;
+  insertView: boolean;
 
+
+  deleteViewMessage: boolean
+  errorDeleteViewMessage: boolean
+
+  addViewMessage: boolean
+  errorAddViewMessage: boolean
+
+  nameItem: string;
+  priceItem: string;
   nameResturant: string;
   cityResturant : string;
   qrUser: string;
@@ -21,6 +32,7 @@ export class ControlMenuComponent implements OnInit {
   dayAuth: string;
 
   menulist$: Menu[];
+  itemList$: Item[];
 
   constructor(
     private dataService: DataService,
@@ -31,11 +43,18 @@ export class ControlMenuComponent implements OnInit {
     this.editMenuView = false;
     this.editResturantView = false;
     this.authUserView = false;
+    this.insertView = false;
+
+    this.deleteViewMessage = false;
+    this.errorDeleteViewMessage = false;
+    this.addViewMessage = false;
+    this.errorAddViewMessage = false;
 
 
     this.dataService.getMenu().subscribe({
       next: (response: Menu[]) => {
-        this.menulist$ = response        
+        this.menulist$ = response     
+        
       }
     });
 
@@ -87,6 +106,60 @@ export class ControlMenuComponent implements OnInit {
 
 
   }
+
+  deleteItem(id){
+    console.log("elimino item con id: "+id)
+    this.dataService.deleteItemMenu(id).subscribe({
+      next: (response: String) => {
+        this.deleteViewMessage = true     
+        this.refreshMenu()
+      },
+      error: error => {
+
+        this.errorDeleteViewMessage = true;
+      }
+    });
+
+  }
+
+  refreshMenu(){
+    this.dataService.getMenu().subscribe({
+      next: (response: Menu[]) => {
+        this.menulist$ = response     
+        
+      }
+    });
+  }
+
+  
+
+  addItemView(){
+    this.insertView = true;
+  }
+
+  addItemButton(){
+    console.log("aggiungo il piatto")
+    let input = new FormData();
+    input.append('name',this.nameItem)
+    input.append('price',this.priceItem)
+
+    this.dataService.addItemMenu(input).subscribe((data: any) => {
+      this.resData = data;
+      console.log(this.resData);
+      this.addViewMessage = true;
+    },
+    error => {
+
+      this.errorAddViewMessage = true;
+    }
+    );
+    this.insertView = false;
+    this.refreshMenu();
+
+  }
+
+  nameItemOnKey(event) { this.nameItem = event.target.value; }
+  priceItemOnKey(event) { this.priceItem = event.target.value; }
 
   nameResturantOnKey(event) { this.nameResturant = event.target.value; }
   cityResturantOnKey(event) { this.cityResturant = event.target.value; }

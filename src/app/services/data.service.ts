@@ -36,12 +36,13 @@ export class DataService {
   apiUrlSendOrder = '/order/send/';
   apiUrlGetMyQr = '/user/qrcode';
   apiUrlGetAuth = '/user/authorized/';
-  apiUrlSetAuth= '/user/authorize';
+  apiUrlSetAuth = '/user/authorize';
 
   //url per RISTORATORE
   apiUrlInsertItem = '/store/menu';
   apiUrlMenu = '/store/menu';
   apiUrlModStore = '/store/info';
+  apiUrlDeleteItemMenu = '/store/item/';
 
   ////servizi per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
@@ -67,8 +68,14 @@ export class DataService {
   }
 
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////
-  sendInsertItem(item): Observable<any> {
+  //servizio per aggiungere una voce nel menu
+  addItemMenu(item): Observable<any> {
     return this.http.post<any>(this.urlBase + this.apiUrlInsertItem, item);
+  }
+  //servizio per eliminare un item dal menu
+  deleteItemMenu(itemId): Observable<any> {
+    
+    return this.http.delete<any>(this.urlBase + this.apiUrlDeleteItemMenu + itemId);
   }
   //servizio per ottenere il qr code
   getMyQr(): Observable<any> {
@@ -80,7 +87,7 @@ export class DataService {
   }
   //servizio per modificare nome e città del ristorante
   getModStore(data): Observable<any> {
-    return this.http.post<any>(this.urlBase + this.apiUrlModStore, data ); //multipart
+    return this.http.post<any>(this.urlBase + this.apiUrlModStore, data); //multipart
   }
   //servizio per autorizzare un cliente a ordinare
   setAuthUser(data): Observable<any> {

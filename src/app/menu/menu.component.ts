@@ -75,7 +75,6 @@ export class MenuComponent implements OnInit {
         console.log("idResturant "+ this.idResturant)
         console.log("qrResturant "+ this.qrResturant)
         console.log("nameResturant "+ this.nameResturant)
-
       } 
       
     });
