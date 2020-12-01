@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ParamMap, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Item } from '../item.model';
 import { Menu } from '../menu.model';
 import { Order } from '../order.model';
 import { Resturant } from '../resturant.model';
@@ -15,7 +16,8 @@ export class MenuComponent implements OnInit {
   idResturant: any;
   qrResturant: any;
   nameResturant: any;  
-  menulist$: Menu[];
+  menulist$: Menu;
+  itemList$: Item[];
   lista: Menu[];
   listResturant: Resturant[];
 
@@ -56,18 +58,12 @@ export class MenuComponent implements OnInit {
     console.log("qrResturant "+ this.qrResturant)
     console.log("nameResturant "+ this.nameResturant)
 
-    if(this.idResturant == undefined){
-
-      //TODO servizio che da qr ristorante da info come il nome
-      
-        
-
-    }
+    
 
     this.authOrder = false;
     this.imAuthorized = false;
     this.showQr = false;
-    this.showSummary=false;
+    this.showSummary=false; 
 
     this.myQr = localStorage.getItem("myQr")
 
@@ -75,8 +71,11 @@ export class MenuComponent implements OnInit {
     console.log("scelto il ristorante con qr code: "+this.qrResturant)
     
     this.dataService.getMenuByQr(this.qrResturant).subscribe({
-      next: (response: Menu[]) => {
+      next: (response: Menu) => {
         this.menulist$ = response 
+        this.itemList$ = this.menulist$.items
+        this.idResturant = this.menulist$.store.id
+        this.nameResturant = this.menulist$.store.name        
         
       } 
       
@@ -133,7 +132,7 @@ export class MenuComponent implements OnInit {
   add(menu : Menu, i: number){
     
     this.quantity[i] = this.quantity[i]+1;
-    let temp = new Order(menu.id,this.quantity[i]);
+    let temp = new Order(menu.items[i].id,this.quantity[i]);
     this.order.push(temp) 
     
 
@@ -142,7 +141,7 @@ export class MenuComponent implements OnInit {
   remove(menu : Menu,i:number){
     if(this.quantity[i] > 0){
       this.quantity[i] = this.quantity[i]-1
-      let temp = new Order(menu.id,this.quantity[i]);
+      let temp = new Order(menu.items[i].id,this.quantity[i]);
       this.order.push(temp) 
     }
   }

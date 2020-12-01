@@ -26,8 +26,8 @@
    
     <div *ngIf="!showQr" >
     <form>
-        <div *ngFor='let menu of menulist$' class="textMod">
-             {{menu.name}} - {{menu.price}} 
+        <div *ngFor='let item of itemList$' class="textMod">
+             {{item.name}} - {{item.price}} 
           </div> 
     </form>
     </div>

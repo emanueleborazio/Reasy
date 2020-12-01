@@ -1,9 +1,9 @@
 import { Voce } from './voce.model';
 
-export class Resturant{
+export class Item{
     id: number;
     name: string;
-    city: string;
-    qrcode: string;
+    price: number;
     menu: Voce;
+    enabled: boolean;
 }
