@@ -47,16 +47,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe((params: Params) => this.qrResturant = params['qr']);
-    this.route.params.subscribe((params: Params) => this.nameResturant = params['name']);
-    this.route.params.subscribe((params: Params) => this.idResturant = params['id']);
+    
 
-    localStorage.setItem("idResturant", this.idResturant)
-    localStorage.setItem("qrResturant",this.qrResturant)
-    localStorage.setItem("nameResturant",this.nameResturant)
-
-    console.log("idResturant "+ this.idResturant)
-    console.log("qrResturant "+ this.qrResturant)
-    console.log("nameResturant "+ this.nameResturant)
+    
 
     
 
@@ -76,12 +69,21 @@ export class MenuComponent implements OnInit {
         this.itemList$ = this.menulist$.items
         this.idResturant = this.menulist$.store.id
         this.nameResturant = this.menulist$.store.name        
-        
+        localStorage.setItem("idResturant", this.idResturant)
+        localStorage.setItem("qrResturant",this.qrResturant)
+        localStorage.setItem("nameResturant",this.nameResturant)
+        console.log("idResturant "+ this.idResturant)
+        console.log("qrResturant "+ this.qrResturant)
+        console.log("nameResturant "+ this.nameResturant)
+
       } 
       
     });
 
+    
+
    
+
     this.checkAuthorization()
     //todo avviare servizio che vede se sono autorizzato
 
