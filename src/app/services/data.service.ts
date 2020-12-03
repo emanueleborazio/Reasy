@@ -43,6 +43,7 @@ export class DataService {
   apiUrlMenu = '/store/menu';
   apiUrlModStore = '/store/info';
   apiUrlDeleteItemMenu = '/store/item/';
+  apiUrlShowContact = '/store/users/';
 
   ////servizi per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
@@ -93,6 +94,9 @@ export class DataService {
   //servizio per autorizzare un cliente a ordinare
   setAuthUser(data): Observable<any> {
     return this.http.post<any>(this.urlBase + this.apiUrlSetAuth, data); //multipart
+  }
+  getShowContact(day): Observable<any> {
+    return this.http.get<any>(this.urlBase + this.apiUrlShowContact + day); //multipart
   }
 
 

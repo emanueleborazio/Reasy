@@ -4,7 +4,7 @@
 <!---------------------------->
 <!--------prima view---------->
 <!---------------------------->
-<div *ngIf="!editMenuView && !editResturantView && !authUserView">
+<div *ngIf="!editMenuView && !editResturantView && !authUserView && !showContactView">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -146,7 +146,7 @@
   </div>
 
 <!------------------------------>
-<!--mautorizza cliente---------->
+<!--autorizza cliente---------->
 <!------------------------------>
 
 
@@ -181,3 +181,37 @@
   </div>
   </div>
 
+<!------------------------------>
+<!----mostra i gli ingressi----->
+<!------------------------------>
+
+
+<div *ngIf="showContactView">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+  
+      <!-- Login Form --> 
+         <h3>Il tuo ristorante</h3>    
+      <form>
+        <input type="text" id="since" class="fadeIn second" name="since" placeholder="Inserire da che giorno es. 31-12-2019" (keyup)="showContactOnKey($event)" >
+        
+        <input type="submit" class="fadeIn fourth" value="Autorizza" (click)="showContactButton()">
+      </form>
+      
+      
+      
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+  
+    </div>
+  </div>
+  </div>

@@ -14,6 +14,7 @@ export class ControlMenuComponent implements OnInit {
   editResturantView: boolean;
   authUserView: boolean;
   insertView: boolean;
+  showContactView: boolean;
 
 
   deleteViewMessage: boolean
@@ -22,6 +23,7 @@ export class ControlMenuComponent implements OnInit {
   addViewMessage: boolean
   errorAddViewMessage: boolean
 
+  sinceDate: string;
   nameItem: string;
   priceItem: string;
   nameResturant: string;
@@ -45,6 +47,7 @@ export class ControlMenuComponent implements OnInit {
     this.editResturantView = false;
     this.authUserView = false;
     this.insertView = false;
+    this.showContactView = false;
 
     this.deleteViewMessage = false;
     this.errorDeleteViewMessage = false;
@@ -71,7 +74,7 @@ export class ControlMenuComponent implements OnInit {
     this.authUserView = true;
   }
   storicoIngressi(){
-
+    this.showContactView = true;
   }
   ordini(){
 
@@ -148,8 +151,6 @@ export class ControlMenuComponent implements OnInit {
         }
       ]
     }
-  //  let input = new FormData();
-
 
     this.dataService.addItemMenu(input).subscribe((data: any) => {
       this.resData = data;
@@ -165,6 +166,8 @@ export class ControlMenuComponent implements OnInit {
     this.refreshMenu();
 
   }
+
+  showContactOnKey(event){ this.sinceDate = event.target.value; }
 
   nameItemOnKey(event) { this.nameItem = event.target.value; }
   priceItemOnKey(event) { this.priceItem = event.target.value; }

@@ -48,11 +48,6 @@ export class MenuComponent implements OnInit {
 
     this.route.params.subscribe((params: Params) => this.qrResturant = params['qr']);
     
-
-    
-
-    
-
     this.authOrder = false;
     this.imAuthorized = false;
     this.showQr = false;
@@ -83,7 +78,7 @@ export class MenuComponent implements OnInit {
 
    
 
-    this.checkAuthorization()
+    //this.checkAuthorization()
     //todo avviare servizio che vede se sono autorizzato
 
   }

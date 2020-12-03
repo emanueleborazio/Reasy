@@ -90,10 +90,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor='let menu of menulist$; let i = index'>
+              <tr *ngFor='let item of itemList$; let i = index'>
                 <th scope="row">{{i+1}}</th>
-                <td>{{menu.name}}</td>
-                <td>{{menu.price}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
                 <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(menu,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(menu,i)">-</button></td>
               </tr>
            </tbody>
@@ -147,9 +147,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let menu of menulist$; let i = index;'>
+                <tr *ngFor='let item of itemlist$; let i = index;'>
                   <th *ngIf="quantity[i]>0" scope="row">{{i+1}}</th>
-                  <td *ngIf="quantity[i]>0">{{menu.name}}</td>
+                  <td *ngIf="quantity[i]>0">{{item.name}}</td>
                   <td *ngIf="quantity[i]>0">{{quantity[i]}}</td>
                 </tr> 
               </tbody>
