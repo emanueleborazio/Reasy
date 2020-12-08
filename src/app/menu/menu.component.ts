@@ -31,6 +31,9 @@ export class MenuComponent implements OnInit {
   sendMessageOk: boolean = false;
   errorSendMessage: boolean = false;
 
+  total: number = 0;
+
+
   myQr: string;
 
   //TODO inizializzare in modo corretto l'array
@@ -121,6 +124,17 @@ export class MenuComponent implements OnInit {
 
   sendOrder(){
     
+    for(let i = 0; i<this.quantity.length;i++){
+      if(this.quantity[i]>0){
+         this.order.push(new Order(this.itemList$[i].id,this.quantity[i])) 
+         this.total=this.total+(this.itemList$[i].price*this.quantity[i])
+      }
+    }
+
+
+
+
+
     console.log("ordine in corso: "+this.order)
 
 
@@ -142,19 +156,12 @@ export class MenuComponent implements OnInit {
 
 
   add(item : Item, i: number){
-    
     this.quantity[i] = this.quantity[i]+1;
-    let temp = new Order(item.id,this.quantity[i]);
-    this.order.push(temp) 
-    
-
   }
 
   remove(item : Item,i:number){
     if(this.quantity[i] > 0){
       this.quantity[i] = this.quantity[i]-1
-      let temp = new Order(item.id,this.quantity[i]);
-      this.order.push(temp) 
     }
   }
 }

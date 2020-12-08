@@ -27,7 +27,7 @@
     <div *ngIf="!showQr" >
     <form>
         <div *ngFor='let item of itemList$' class="textMod">
-             {{item.name}} - {{item.price}} 
+             {{item.name}} - {{item.price}} € 
           </div> 
     </form>
     </div>
@@ -156,6 +156,13 @@
                   <td *ngIf="quantity[i]>0">{{quantity[i]}}</td>
                 </tr> 
               </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>Totale: {{total}}€</th>
+                </tr>
+              </tfoot>
             </table>
           </div>
       </form>
