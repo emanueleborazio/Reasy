@@ -27,6 +27,9 @@ export class MenuComponent implements OnInit {
   errorAuth : boolean =false;
   showSummary: boolean = false;
 
+  sendMessageOk: boolean = false;
+  errorSendMessage: boolean = false;
+
   myQr: string;
 
   //TODO inizializzare in modo corretto l'array
@@ -118,26 +121,42 @@ export class MenuComponent implements OnInit {
   sendOrder(){
     
     console.log("ordine in corso: "+this.order)
-    this.dataService.sendOrder(this.idResturant,this.order);
-    console.log("ordine inviato")
-    this.showSummary= true
+    let input = {
+      "items" : JSON.stringify(this.order)
+    }
 
+    
+
+    this.dataService.sendOrder(this.idResturant,input).subscribe((data: any) => {
+      
+      console.log(data);
+      this.sendMessageOk = true;
+      this.showSummary= true
+
+    },
+    error => {
+
+      this.errorSendMessage = true;
+    }
+    );
+    console.log("ordine inviato")
+    
   }
 
 
-  add(menu : Menu, i: number){
+  add(item : Item, i: number){
     
     this.quantity[i] = this.quantity[i]+1;
-    let temp = new Order(menu.items[i].id,this.quantity[i]);
+    let temp = new Order(item.id,this.quantity[i]);
     this.order.push(temp) 
     
 
   }
 
-  remove(menu : Menu,i:number){
+  remove(item : Item,i:number){
     if(this.quantity[i] > 0){
       this.quantity[i] = this.quantity[i]-1
-      let temp = new Order(menu.items[i].id,this.quantity[i]);
+      let temp = new Order(item.id,this.quantity[i]);
       this.order.push(temp) 
     }
   }

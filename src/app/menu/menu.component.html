@@ -77,7 +77,10 @@
 
     
     <h3>Menù</h3>
-  
+    <div *ngIf='errorSendMessage' class="alert alert-warning" role="alert">
+      Errore durante l'invio dell'ordine
+    </div>
+    
     <form>
         <div>
           <table class="table" style="text-align:center;">
@@ -94,7 +97,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
-                <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(menu,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(menu,i)">-</button></td>
+                <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(item,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(item,i)">-</button></td>
               </tr>
            </tbody>
           </table>      
@@ -103,9 +106,9 @@
     
   
 
-    <!-- Remind Passowrd -->
+   
     <div id="formFooter">
-      <div *ngIf="!showQr">
+      <div>
         <input type="submit" class="fadeIn fourth" value="Invia Ordine" (click)="sendOrder()">
       </div>
       <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
@@ -147,7 +150,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let item of itemlist$; let i = index;'>
+                <tr *ngFor='let item of itemList$; let i = index;'>
                   <th *ngIf="quantity[i]>0" scope="row">{{i+1}}</th>
                   <td *ngIf="quantity[i]>0">{{item.name}}</td>
                   <td *ngIf="quantity[i]>0">{{quantity[i]}}</td>
@@ -157,6 +160,9 @@
           </div>
       </form>
       
+      <div *ngIf='addViewMessage' class="alert alert-success" role="alert">
+        Ordine inviato
+      </div>
     
   
       <!-- Remind Passowrd -->
