@@ -4,7 +4,7 @@
 <!---------------------------->
 <!--------prima view---------->
 <!---------------------------->
-<div *ngIf="!editMenuView && !editResturantView && !authUserView && !showContactView">
+<div *ngIf="!editMenuView && !editResturantView && !authUserView && !showContactFormView">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -13,17 +13,33 @@
       <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
       <h1>REASY</h1>
     </div>
-    <!-- Login Form -->
+    <!--  Form -->
+    
     
     <form>
-      <input type="submit" class="fadeIn fourth" value="Gestisci il tuo ristorante" (click)="editResturant()">
-      <input type="submit" class="fadeIn fourth" value="Gestisci il tuo menù" (click)="editMenu()">
-      <input type="submit" class="fadeIn fourth" value="Autorizza con QRcode" (click)="autorizzaQr()">
-      <input type="submit" class="fadeIn fourth" value="Monitora gli ingressi" (click)="storicoIngressi()">
-      <input type="submit" class="fadeIn fourth" value="Ordini" (click)="Ordini()">
+      <div>
+        <table class="table" style="text-align:center;">
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editResturant()">Gestisci il tuo ristorante</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editMenu()">Gestisci il tuo menù</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="autorizzaQr()">Autorizza con QRcode</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="storicoIngressi()">Monitora gli ingressi</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="Ordini()">Ordini</button></td>
+            </tr>
+        </table>      
+      </div> 
     </form>
-   
-    <!-- Remind Passowrd -->
+    
+  
+    <!-- Footer -->
     <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
     </div>
@@ -48,7 +64,7 @@
       <h1>REASY</h1>
     </div>
 
-    <!-- Login Form --> 
+    <!-- Form --> 
        <h3>Menù</h3>    
        <div *ngIf='deleteViewMessage' class="alert alert-success" role="alert">
         Eliminato correttamente
@@ -96,7 +112,7 @@
     </form>
    </div> 
     
-    <!-- Remind Passowrd -->
+    <!-- Footer -->
     <div id="formFooter">
       <div>
         <input type="submit" class="fadeIn fourth" value="Aggiungi piatto" (click)="addItemView()">
@@ -126,7 +142,7 @@
         <h1>REASY</h1>
       </div>
   
-      <!-- Login Form --> 
+      <!-- Form --> 
          <h3>Il tuo ristorante</h3>    
       <form>
         <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante" (keyup)="nameResturantOnKey($event)" >
@@ -161,7 +177,7 @@
         <h1>REASY</h1>
       </div>
   
-      <!-- Login Form --> 
+      <!-- Form --> 
          <h3>Il tuo ristorante</h3>    
       <form>
         <input type="text" id="Auth" class="fadeIn second" name="Auth" placeholder="Codice qr del cliente" (keyup)="qrClienteOnKey($event)" >
@@ -172,7 +188,7 @@
       
       
       
-      <!-- Remind Passowrd -->
+      <!-- Footer -->
       <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
       </div>
@@ -182,11 +198,11 @@
   </div>
 
 <!------------------------------>
-<!----mostra i gli ingressi----->
+<!------mostra gli ingressi----->
 <!------------------------------>
 
 
-<div *ngIf="showContactView">
+<div *ngIf="showContactFormView">
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
@@ -197,17 +213,55 @@
         <h1>REASY</h1>
       </div>
   
-      <!-- Login Form --> 
-         <h3>Il tuo ristorante</h3>    
-      <form>
-        <input type="text" id="since" class="fadeIn second" name="since" placeholder="Inserire da che giorno es. 31-12-2019" (keyup)="showContactOnKey($event)" >
-        
-        <input type="submit" class="fadeIn fourth" value="Autorizza" (click)="showContactButton()">
-      </form>
+      <div *ngIf='errorShowContactMessage' class="alert alert-warning" role="alert">
+        Errore nella visualizzazione dei contatti
+      </div>
+      <!--Form --> 
+         <h3>Il tuo ristorante</h3>  
+      <div *ngIf="!showContactView">  
+        <form>
+          <div>
+            <table class="table">
+                <tr>
+                  <td><input type="text" id="since" class="fadeIn second" name="since" placeholder="Inserire da che giorno es. 2019-12-31" (keyup)="showContactOnKey($event)" ></td>
+                </tr>
+                <tr>
+                  <td><button type="button" class="btn btn-primary btn-lg btn-block" (click)="showContactButton()">Monitora</button></td>
+                </tr>
+            </table>      
+          </div> 
+        </form>
+
+      </div>
+      <div *ngIf="showContactView">  
+        <form>
+          <div>
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">USER</th>
+                  <th scope="col">CEL</th>
+                  <th scope="col" >TAVOLO</th>
+                  <th scope="col" >INGRESSO</th>
+                  <th scope="col" >USCITA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let user of contactList$'>
+                  <th scope="row">{{user.username}}</th>
+                  <td>{{user.mobile}}</td>
+                  <td>{{user.note}}</td>
+                  <td>{{user.start}}</td>
+                  <td>{{user.expiration}}</td>
+                </tr>
+             </tbody>
+            </table>      
+          </div> 
+        </form>
+        </div>
       
       
-      
-      <!-- Remind Passowrd -->
+      <!-- Footer -->
       <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
       </div>

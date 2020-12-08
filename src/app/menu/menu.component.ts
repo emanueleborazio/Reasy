@@ -78,7 +78,6 @@ export class MenuComponent implements OnInit {
         console.log("qrResturant "+ this.qrResturant)
         console.log("nameResturant "+ this.nameResturant)
       } 
-      
     });
 
     

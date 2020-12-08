@@ -50,23 +50,7 @@ export class HomeComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    //todo fare cotrolli username o pw vuoti
-    /*
-    if (this.username === "" || this.password === "") {
-      this.errorEmpty = true;
-    } else {
-      console.log("username "+this.username)
-      console.log("pw "+this.password)
-      
-      /*
-      this.dataService.postSignIn(this.username, this.password).subscribe({
-        next: (response: Login) => {
-          this.account = response
-          localStorage.setItem('token', this.account.accessToken)
-          localStorage.setItem('role',this.account.roles[0])
-        }
-      });
-      */
+    
     this.dataService.getSignIn(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe({
@@ -93,19 +77,7 @@ export class HomeComponent implements OnInit {
 
 
 
-
-
-
-
-    // }
-
-
   }
-  //usernameOnKey(event) { this.username = event.target.value; }
-  //passwordOnKey(event) { this.password = event.target.value; }
 
-  timeout(ms) { //pass a time in milliseconds to this function
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
 }

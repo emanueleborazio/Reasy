@@ -97,7 +97,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
-                <td style="text-align:right;"><button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(item,i)">+</button> {{quantity[i]}} <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(item,i)">-</button></td>
+                <td style="text-align:right;"><button type="button" class="btn btn-danger btn-circle btn-xl" (click)="remove(item,i)">-</button> {{quantity[i]}} <button type="button" class="btn btn-success btn-circle btn-xl" (click)="add(item,i)">+</button></td>
               </tr>
            </tbody>
           </table>      

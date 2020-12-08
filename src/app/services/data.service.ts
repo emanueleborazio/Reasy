@@ -9,6 +9,7 @@ import { Resturant } from '../resturant.model';
 import { User } from '../user.model';
 import { map } from 'rxjs/operators';
 import { Order } from '../order.model';
+import { Contact } from '../contact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,6 @@ export class DataService {
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////
   //servizio per aggiungere una voce nel menu
   addItemMenu(item): Observable<any> {
-    debugger
     return this.http.post<any>(this.urlBase + this.apiUrlInsertItem, item);
   }
   //servizio per eliminare un item dal menu
@@ -96,7 +96,10 @@ export class DataService {
     return this.http.post<any>(this.urlBase + this.apiUrlSetAuth, data); //multipart
   }
   getShowContact(day): Observable<any> {
-    return this.http.get<any>(this.urlBase + this.apiUrlShowContact + day); //multipart
+    if(day===undefined)
+      return this.http.get<Contact[]>(this.urlBase + this.apiUrlShowContact);
+    else
+      return this.http.get<Contact[]>(this.urlBase + this.apiUrlShowContact + day); //multipart
   }
 
 

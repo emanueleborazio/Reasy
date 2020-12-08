@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Contact } from '../contact.model';
 import { Item } from '../item.model';
 import { Menu } from '../menu.model';
 import { DataService } from '../services/data.service';
@@ -15,7 +16,7 @@ export class ControlMenuComponent implements OnInit {
   authUserView: boolean;
   insertView: boolean;
   showContactView: boolean;
-
+  showContactFormView: boolean;
 
   deleteViewMessage: boolean
   errorDeleteViewMessage: boolean
@@ -23,7 +24,9 @@ export class ControlMenuComponent implements OnInit {
   addViewMessage: boolean
   errorAddViewMessage: boolean
 
-  sinceDate: string;
+  errorShowContactMessage: boolean
+
+  contactDay: string;
   nameItem: string;
   priceItem: string;
   nameResturant: string;
@@ -35,6 +38,7 @@ export class ControlMenuComponent implements OnInit {
 
   menulist$: Menu[];
   itemList$: Item[];
+  contactList$: Contact[];
   
 
   constructor(
@@ -43,16 +47,20 @@ export class ControlMenuComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    //VIEW
     this.editMenuView = false;
     this.editResturantView = false;
     this.authUserView = false;
     this.insertView = false;
     this.showContactView = false;
+    this.showContactFormView = false;
 
+    //MESSAGE
     this.deleteViewMessage = false;
     this.errorDeleteViewMessage = false;
     this.addViewMessage = false;
     this.errorAddViewMessage = false;
+    this.errorShowContactMessage = false;
 
 
     this.dataService.getMenu().subscribe({
@@ -74,7 +82,7 @@ export class ControlMenuComponent implements OnInit {
     this.authUserView = true;
   }
   storicoIngressi(){
-    this.showContactView = true;
+    this.showContactFormView = true;
   }
   ordini(){
 
@@ -167,7 +175,23 @@ export class ControlMenuComponent implements OnInit {
 
   }
 
-  showContactOnKey(event){ this.sinceDate = event.target.value; }
+  showContactButton(){
+
+    this.dataService.getShowContact(this.contactDay).subscribe({
+      next: (response: Contact[]) => {     
+        this.contactList$ = response
+      
+      },error:()=>{
+        this.errorShowContactMessage = false;
+      }
+    });
+  
+
+
+    this.showContactView = true;
+  }
+
+  showContactOnKey(event){ this.contactDay = event.target.value; }
 
   nameItemOnKey(event) { this.nameItem = event.target.value; }
   priceItemOnKey(event) { this.priceItem = event.target.value; }
