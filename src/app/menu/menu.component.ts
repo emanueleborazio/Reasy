@@ -20,6 +20,7 @@ export class MenuComponent implements OnInit {
   itemList$: Item[];
   lista: Menu[];
   listResturant: Resturant[];
+  
 
   imAuthorized: boolean;
   showQr: boolean;
@@ -121,13 +122,9 @@ export class MenuComponent implements OnInit {
   sendOrder(){
     
     console.log("ordine in corso: "+this.order)
-    let input = {
-      "items" : JSON.stringify(this.order)
-    }
 
-    
 
-    this.dataService.sendOrder(this.idResturant,input).subscribe((data: any) => {
+    this.dataService.sendOrder(this.idResturant,this.order).subscribe((data: any) => {
       
       console.log(data);
       this.sendMessageOk = true;
