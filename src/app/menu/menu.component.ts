@@ -167,7 +167,5 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  get subtotal(){
-    return this.subTotal
-  }
+  
 }
