@@ -302,8 +302,9 @@
         Errore nella visualizzazione degli ordini
       </div>
       <!--Form -->
-      <h3>Ordini</h3>
+      
       <div *ngIf="!showOrdersFormView">
+        <h3>Ordini</h3>
         <form>
           <input type="text" id="QrUser" class="fadeIn third" name="QrUser" placeholder="Inserire QR-code del cliente"
             (keyup)="qrCodeOnKey($event)">
@@ -311,6 +312,7 @@
         </form>
       </div>
       <div *ngIf="showOrdersFormView">
+        <h3>Ordini: {{nameTable}}</h3>
         <form>
           <div>
             <table class="table" style="text-align:center;">
@@ -331,9 +333,10 @@
                 </tr>
               </tbody>
               <tfoot>
-                
+                  <th></th>
+                  <th></th>
+                  <th></th>
                   <th>Totale: {{total}}€</th>
-             
               </tfoot>
             </table>
           </div>

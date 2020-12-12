@@ -43,6 +43,7 @@ export class ControlMenuComponent implements OnInit {
   resData: any;
   dayAuth: string;
   total: number;
+  nameTable: string;
 
   menulist$: Menu2[];
   itemList$: Item[];
@@ -218,7 +219,8 @@ export class ControlMenuComponent implements OnInit {
           this.total=this.total+(this.itemsOrder$[i].item.price * this.itemsOrder$[i].quantity)
         }
         
-        console.log("data: "+this.orderUserList$)
+        this.nameTable = this.orderUserList$[this.orderUserList$.length-1].note
+        
         
         
       },error:()=>{
