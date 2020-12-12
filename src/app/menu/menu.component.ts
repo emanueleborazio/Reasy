@@ -167,5 +167,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  public subTotalFunction(){
+    return this.subTotal;
+  }
   
 }
