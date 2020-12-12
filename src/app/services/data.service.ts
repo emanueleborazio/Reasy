@@ -10,6 +10,7 @@ import { User } from '../user.model';
 import { map } from 'rxjs/operators';
 import { Order } from '../order.model';
 import { Contact } from '../contact.model';
+import { ResturantMenu } from '../resturantMenu.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,7 +88,7 @@ export class DataService {
   }
   //servizio per leggere il menù
   getMenu(): Observable<any> {
-    return this.http.get<Menu2[]>(this.urlBase + this.apiUrlMenu);
+    return this.http.get<ResturantMenu>(this.urlBase + this.apiUrlMenu);
   }
   //servizio per modificare nome e città del ristorante
   getModStore(data): Observable<any> {

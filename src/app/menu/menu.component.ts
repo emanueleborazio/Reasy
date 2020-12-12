@@ -32,6 +32,7 @@ export class MenuComponent implements OnInit {
   errorSendMessage: boolean = false;
 
   total: number = 0;
+  subTotal: number = 0;
 
 
   myQr: string;
@@ -100,7 +101,7 @@ export class MenuComponent implements OnInit {
   checkAuthorization(){
 
     // todo servizio non funzionante, momentanemanete sospeso
-    
+    this.subTotal = 0
     this.dataService.getAuthUser(this.idResturant).subscribe({
       next: (response: Boolean) => {
         if(response){
@@ -156,11 +157,17 @@ export class MenuComponent implements OnInit {
 
   add(item : Item, i: number){
     this.quantity[i] = this.quantity[i]+1;
+    this.subTotal = this.subTotal + item.price
   }
 
   remove(item : Item,i:number){
     if(this.quantity[i] > 0){
       this.quantity[i] = this.quantity[i]-1
+      this.subTotal = this.subTotal - item.price
     }
+  }
+
+  get subtotal(){
+    return this.subTotal
   }
 }

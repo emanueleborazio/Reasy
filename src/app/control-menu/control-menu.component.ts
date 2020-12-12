@@ -5,6 +5,7 @@ import { Item } from '../item.model';
 import { Items } from '../items.model';
 import { Menu2 } from '../menu2.model';
 import { OrderFullData } from '../orderFullData.model';
+import { ResturantMenu } from '../resturantMenu.model';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -35,8 +36,8 @@ export class ControlMenuComponent implements OnInit {
   contactDay: string;
   nameItem: string;
   priceItem: string;
-  nameResturant: string;
-  cityResturant : string;
+  nameResturantNew: string;
+  cityResturantNew : string;
   qrUser: string;
   qrUserOrders: string;
   note: string;
@@ -44,8 +45,11 @@ export class ControlMenuComponent implements OnInit {
   dayAuth: string;
   total: number;
   nameTable: string;
+  nameResturant: string;
+  cityResturant: string;
 
-  menulist$: Menu2[];
+  menulist$: ResturantMenu;
+  itemEditMenuList$: Item[];
   itemList$: Item[];
   contactList$: Contact[];
   orderUserList$: OrderFullData[];
@@ -79,9 +83,11 @@ export class ControlMenuComponent implements OnInit {
 
 
     this.dataService.getMenu().subscribe({
-      next: (response: Menu2[]) => {
-        this.menulist$ = response     
-        
+      next: (response: ResturantMenu) => {
+        this.menulist$ = response  
+        this.itemEditMenuList$  = this.menulist$.items  
+        this.nameResturant = this.menulist$.store.name 
+        this.cityResturant = this.menulist$.store.city
       }
     });
 
@@ -109,8 +115,8 @@ export class ControlMenuComponent implements OnInit {
   editResturantButton(){
     
     let input = new FormData();
-    input.append('name',this.nameResturant)
-    input.append('city',this.cityResturant)
+    input.append('name',this.nameResturantNew)
+    input.append('city',this.cityResturantNew)
 
     this.dataService.getModStore(input).subscribe((data: any) => {
       this.resData = data;
@@ -152,12 +158,24 @@ export class ControlMenuComponent implements OnInit {
   }
 
   refreshMenu(){
+
+
+    
+
     this.dataService.getMenu().subscribe({
-      next: (response: Menu2[]) => {
-        this.menulist$ = response     
-        
+      next: (response: ResturantMenu) => {
+        this.menulist$ = response  
+        this.itemEditMenuList$  = this.menulist$.items  
+        this.nameResturant = this.menulist$.store.name 
+        this.cityResturant = this.menulist$.store.city
       }
     });
+
+    setTimeout(()=>{
+      this.addViewMessage = false;
+      this.deleteViewMessage = false;
+    },2000)
+    
   }
 
   
@@ -242,8 +260,8 @@ export class ControlMenuComponent implements OnInit {
   nameItemOnKey(event) { this.nameItem = event.target.value; }
   priceItemOnKey(event) { this.priceItem = event.target.value; }
 
-  nameResturantOnKey(event) { this.nameResturant = event.target.value; }
-  cityResturantOnKey(event) { this.cityResturant = event.target.value; }
+  nameResturantOnKey(event) { this.nameResturantNew = event.target.value; }
+  cityResturantOnKey(event) { this.cityResturantNew = event.target.value; }
 
   qrClienteOnKey(event) { this.qrUser = event.target.value; }
   noteOnKey(event) { this.note = event.target.value; }

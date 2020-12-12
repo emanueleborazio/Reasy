@@ -12,6 +12,7 @@
       <div class="fadeIn first">
         <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
         <h1>REASY</h1>
+        <h2 class="textblue">{{nameResturant}}</h2>
       </div>
       <!--  Form -->
 
@@ -97,7 +98,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let menu of menulist$; let i = index'>
+                <tr *ngFor='let menu of itemEditMenuList$; let i = index'>
                   <th scope="row">{{i+1}}</th>
                   <td>{{menu.name}}</td>
                   <td>{{menu.price}}</td>
@@ -152,9 +153,9 @@
       <!-- Form -->
       <h3>Il tuo ristorante</h3>
       <form>
-        <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante"
+        <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante: {{nameResturant}}"
           (keyup)="nameResturantOnKey($event)">
-        <input type="text" id="Citta" class="fadeIn third" name="Citta" placeholder="Città"
+        <input type="text" id="Citta" class="fadeIn third" name="Citta" placeholder="Città: {{cityResturant}}"
           (keyup)="cityResturantOnKey($event)">
         <input type="submit" class="fadeIn fourth" value="Conferma" (click)="editResturantButton()">
       </form>
