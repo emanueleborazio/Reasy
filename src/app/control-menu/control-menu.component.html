@@ -4,48 +4,52 @@
 <!---------------------------->
 <!--------prima view---------->
 <!---------------------------->
-<div *ngIf="!editMenuView && !editResturantView && !authUserView && !showContactFormView">
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
-      <h1>REASY</h1>
-    </div>
-    <!--  Form -->
-    
-    
-    <form>
-      <div>
-        <table class="table" style="text-align:center;">
-            <tr>
-              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editResturant()">Gestisci il tuo ristorante</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editMenu()">Gestisci il tuo menù</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="autorizzaQr()">Autorizza con QRcode</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="storicoIngressi()">Monitora gli ingressi</button></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="Ordini()">Ordini</button></td>
-            </tr>
-        </table>      
-      </div> 
-    </form>
-    
-  
-    <!-- Footer -->
-    <div id="formFooter">
-        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
-    </div>
+<div *ngIf="!editMenuView && !editResturantView && !authUserView && !showContactFormView && !showOrdersByUserId">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+      <!--  Form -->
 
+
+      <form>
+        <div>
+          <table class="table" style="text-align:center;">
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editResturant()">Gestisci il
+                  tuo ristorante</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="editMenu()">Gestisci il tuo
+                  menù</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="autorizzaQr()">Autorizza con
+                  QRcode</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="storicoIngressi()">Monitora gli
+                  ingressi</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-danger btn-lg btn-block" (click)="ordini()">Ordini</button></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+
+
+      <!-- Footer -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+
+    </div>
   </div>
-</div>
 </div>
 
 <!---------------------------->
@@ -54,19 +58,19 @@
 
 
 <div *ngIf="editMenuView">
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
-      <h1>REASY</h1>
-    </div>
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
 
-    <!-- Form --> 
-       <h3>Menù</h3>    
-       <div *ngIf='deleteViewMessage' class="alert alert-success" role="alert">
+      <!-- Form -->
+      <h3>Menù</h3>
+      <div *ngIf='deleteViewMessage' class="alert alert-success" role="alert">
         Eliminato correttamente
       </div>
       <div *ngIf='errorDeleteViewMessage' class="alert alert-warning" role="alert">
@@ -81,49 +85,52 @@
 
 
       <div *ngIf='!insertView'>
-       <form>
-        <div>
-          <table class="table" style="text-align:center;">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Prezzo</th>
-                <th scope="col" ></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor='let menu of menulist$; let i = index'>
-                <th scope="row">{{i+1}}</th>
-                <td>{{menu.name}}</td>
-                <td>{{menu.price}}</td>
-                <td><button type="button" class="btn btn-danger btn-circle" (click)="deleteItem(menu.id)">Elimina</button></td>
-              </tr>
-           </tbody>
-          </table>      
-        </div> 
-    </form>
-   </div>
-   <div *ngIf='insertView'>
-    <form>
-      <input type="text" id="nameItem" class="fadeIn second" name="nameItem" placeholder="Nome del piatto" (keyup)="nameItemOnKey($event)" >
-      <input type="text" id="price" class="fadeIn third" name="price" placeholder="Prezzo" (keyup)="priceItemOnKey($event)">
-      <input type="submit" class="fadeIn fourth" value="Conferma" (click)="addItemButton()">
-    </form>
-   </div> 
-    
-    <!-- Footer -->
-    <div id="formFooter">
-      <div>
-        <input type="submit" class="fadeIn fourth" value="Aggiungi piatto" (click)="addItemView()">
+        <form>
+          <div>
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Prezzo</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let menu of menulist$; let i = index'>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{menu.name}}</td>
+                  <td>{{menu.price}}</td>
+                  <td><button type="button" class="btn btn-danger btn-circle"
+                      (click)="deleteItem(menu.id)">Elimina</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
       </div>
-      <div>
-        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      <div *ngIf='insertView'>
+        <form>
+          <input type="text" id="nameItem" class="fadeIn second" name="nameItem" placeholder="Nome del piatto"
+            (keyup)="nameItemOnKey($event)">
+          <input type="text" id="price" class="fadeIn third" name="price" placeholder="Prezzo"
+            (keyup)="priceItemOnKey($event)">
+          <input type="submit" class="fadeIn fourth" value="Conferma" (click)="addItemButton()">
+        </form>
       </div>
-    </div>
 
+      <!-- Footer -->
+      <div id="formFooter">
+        <div>
+          <input type="submit" class="fadeIn fourth" value="Aggiungi piatto" (click)="addItemView()">
+        </div>
+        <div>
+          <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
 </div>
 
 <!------------------------------>
@@ -135,31 +142,33 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
-  
+
       <!-- Icon -->
       <div class="fadeIn first">
         <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
         <h1>REASY</h1>
       </div>
-  
-      <!-- Form --> 
-         <h3>Il tuo ristorante</h3>    
+
+      <!-- Form -->
+      <h3>Il tuo ristorante</h3>
       <form>
-        <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante" (keyup)="nameResturantOnKey($event)" >
-        <input type="text" id="Citta" class="fadeIn third" name="Citta" placeholder="Città" (keyup)="cityResturantOnKey($event)">
+        <input type="text" id="Nome" class="fadeIn second" name="Nome" placeholder="Nome del ristorante"
+          (keyup)="nameResturantOnKey($event)">
+        <input type="text" id="Citta" class="fadeIn third" name="Citta" placeholder="Città"
+          (keyup)="cityResturantOnKey($event)">
         <input type="submit" class="fadeIn fourth" value="Conferma" (click)="editResturantButton()">
       </form>
-      
-      
-      
+
+
+
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
       </div>
-  
+
     </div>
   </div>
-  </div>
+</div>
 
 <!------------------------------>
 <!--autorizza cliente---------->
@@ -170,32 +179,33 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
-  
+
       <!-- Icon -->
       <div class="fadeIn first">
         <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
         <h1>REASY</h1>
       </div>
-  
-      <!-- Form --> 
-         <h3>Il tuo ristorante</h3>    
+
+      <!-- Form -->
+      <h3>Il tuo ristorante</h3>
       <form>
-        <input type="text" id="Auth" class="fadeIn second" name="Auth" placeholder="Codice qr del cliente" (keyup)="qrClienteOnKey($event)" >
-        <input type="text" id="Note" class="fadeIn second" name="Note" placeholder="Note" (keyup)="noteOnKey($event)" >
-        <input type="text" id="Day" class="fadeIn second" name="Day" placeholder="giorni" (keyup)="dayOnKey($event)" >
+        <input type="text" id="Auth" class="fadeIn second" name="Auth" placeholder="Codice qr del cliente"
+          (keyup)="qrClienteOnKey($event)">
+        <input type="text" id="Note" class="fadeIn second" name="Note" placeholder="Note" (keyup)="noteOnKey($event)">
+        <input type="text" id="Day" class="fadeIn second" name="Day" placeholder="giorni" (keyup)="dayOnKey($event)">
         <input type="submit" class="fadeIn fourth" value="Autorizza" (click)="authUserButton()">
       </form>
-      
-      
-      
+
+
+
       <!-- Footer -->
       <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
       </div>
-  
+
     </div>
   </div>
-  </div>
+</div>
 
 <!------------------------------>
 <!------mostra gli ingressi----->
@@ -206,34 +216,36 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
-  
+
       <!-- Icon -->
       <div class="fadeIn first">
         <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
         <h1>REASY</h1>
       </div>
-  
+
       <div *ngIf='errorShowContactMessage' class="alert alert-warning" role="alert">
         Errore nella visualizzazione dei contatti
       </div>
-      <!--Form --> 
-         <h3>Il tuo ristorante</h3>  
-      <div *ngIf="!showContactView">  
+      <!--Form -->
+      <h3>Il tuo ristorante</h3>
+      <div *ngIf="!showContactView">
         <form>
           <div>
             <table class="table">
-                <tr>
-                  <td><input type="text" id="since" class="fadeIn second" name="since" placeholder="Inserire da che giorno es. 2019-12-31" (keyup)="showContactOnKey($event)" ></td>
-                </tr>
-                <tr>
-                  <td><button type="button" class="btn btn-primary btn-lg btn-block" (click)="showContactButton()">Monitora</button></td>
-                </tr>
-            </table>      
-          </div> 
+              <tr>
+                <td><input type="text" id="since" class="fadeIn second" name="since"
+                    placeholder="Inserire da che giorno es. 2019-12-31" (keyup)="showContactOnKey($event)"></td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-primary btn-lg btn-block"
+                    (click)="showContactButton()">Monitora</button></td>
+              </tr>
+            </table>
+          </div>
         </form>
 
       </div>
-      <div *ngIf="showContactView">  
+      <div *ngIf="showContactView">
         <form>
           <div>
             <table class="table" style="text-align:center;">
@@ -241,9 +253,9 @@
                 <tr>
                   <th scope="col">USER</th>
                   <th scope="col">CEL</th>
-                  <th scope="col" >TAVOLO</th>
-                  <th scope="col" >INGRESSO</th>
-                  <th scope="col" >USCITA</th>
+                  <th scope="col">TAVOLO</th>
+                  <th scope="col">INGRESSO</th>
+                  <th scope="col">USCITA</th>
                 </tr>
               </thead>
               <tbody>
@@ -254,18 +266,90 @@
                   <td>{{user.start}}</td>
                   <td>{{user.expiration}}</td>
                 </tr>
-             </tbody>
-            </table>      
-          </div> 
+              </tbody>
+            </table>
+          </div>
         </form>
-        </div>
-      
-      
+      </div>
+
+
       <!-- Footer -->
       <div id="formFooter">
         <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
       </div>
-  
+
     </div>
   </div>
+</div>
+
+<!------------------------------>
+<!----mostra ordini by qruser--->
+<!------------------------------>
+
+
+<div *ngIf="showOrdersByUserId">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+      </div>
+
+      <div *ngIf='errorShowOrdersMessage' class="alert alert-warning" role="alert">
+        Errore nella visualizzazione degli ordini
+      </div>
+      <!--Form -->
+      <h3>Ordini</h3>
+      <div *ngIf="!showOrdersFormView">
+        <form>
+          <input type="text" id="QrUser" class="fadeIn third" name="QrUser" placeholder="Inserire QR-code del cliente"
+            (keyup)="qrCodeOnKey($event)">
+          <input type="submit" class="fadeIn fourth" value="Cerca" (click)="showOrdersButton()">
+        </form>
+      </div>
+      <div *ngIf="showOrdersFormView">
+        <form>
+          <div>
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">PIATTO</th>
+                  <th scope="col">PREZZO</th>
+                  <th scope="col">QUANTITA'</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let element of itemsOrder$; let i = index;'>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{element.item.name}}</td>
+                  <td>{{element.item.price}}€</td>
+                  <td>{{element.quantity}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                
+                  <th>Totale: {{total}}€</th>
+             
+              </tfoot>
+            </table>
+          </div>
+        </form>
+
+
+
+
+      </div>
+
+
+      <!-- Footer -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+
+    </div>
   </div>
+</div>

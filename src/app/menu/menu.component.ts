@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ParamMap, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Item } from '../item.model';
-import { Menu } from '../menu.model';
+import { Menu2 } from '../menu2.model';
 import { Order } from '../order.model';
 import { Resturant } from '../resturant.model';
 import { DataService } from '../services/data.service';
@@ -16,9 +16,9 @@ export class MenuComponent implements OnInit {
   idResturant: any;
   qrResturant: any;
   nameResturant: any;  
-  menulist$: Menu;
+  menulist$: Menu2;
   itemList$: Item[];
-  lista: Menu[];
+  lista: Menu2[];
   listResturant: Resturant[];
   
 
@@ -66,7 +66,7 @@ export class MenuComponent implements OnInit {
     console.log("scelto il ristorante con qr code: "+this.qrResturant)
     
     this.dataService.getMenuByQr(this.qrResturant).subscribe({
-      next: (response: Menu) => {
+      next: (response: Menu2) => {
         this.menulist$ = response 
         this.itemList$ = this.menulist$.items
         this.idResturant = this.menulist$.store.id

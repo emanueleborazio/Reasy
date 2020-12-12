@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contact } from '../contact.model';
 import { Item } from '../item.model';
-import { Menu } from '../menu.model';
+import { Items } from '../items.model';
+import { Menu2 } from '../menu2.model';
+import { OrderFullData } from '../orderFullData.model';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -17,6 +19,8 @@ export class ControlMenuComponent implements OnInit {
   insertView: boolean;
   showContactView: boolean;
   showContactFormView: boolean;
+  showOrdersByUserId: boolean;
+  showOrdersFormView: boolean;
 
   deleteViewMessage: boolean
   errorDeleteViewMessage: boolean
@@ -26,19 +30,25 @@ export class ControlMenuComponent implements OnInit {
 
   errorShowContactMessage: boolean
 
+  errorShowOrdersMessage: boolean
+
   contactDay: string;
   nameItem: string;
   priceItem: string;
   nameResturant: string;
   cityResturant : string;
   qrUser: string;
+  qrUserOrders: string;
   note: string;
   resData: any;
   dayAuth: string;
+  total: number;
 
-  menulist$: Menu[];
+  menulist$: Menu2[];
   itemList$: Item[];
   contactList$: Contact[];
+  orderUserList$: OrderFullData[];
+  itemsOrder$: Items[];
   
 
   constructor(
@@ -54,6 +64,9 @@ export class ControlMenuComponent implements OnInit {
     this.insertView = false;
     this.showContactView = false;
     this.showContactFormView = false;
+    this.showOrdersByUserId = false;
+    this.showOrdersFormView = false;
+
 
     //MESSAGE
     this.deleteViewMessage = false;
@@ -61,14 +74,17 @@ export class ControlMenuComponent implements OnInit {
     this.addViewMessage = false;
     this.errorAddViewMessage = false;
     this.errorShowContactMessage = false;
+    this.errorShowOrdersMessage = false;
 
 
     this.dataService.getMenu().subscribe({
-      next: (response: Menu[]) => {
+      next: (response: Menu2[]) => {
         this.menulist$ = response     
         
       }
     });
+
+   
 
   }
 
@@ -85,7 +101,7 @@ export class ControlMenuComponent implements OnInit {
     this.showContactFormView = true;
   }
   ordini(){
-
+    this.showOrdersByUserId = true;
   }
 
 
@@ -136,7 +152,7 @@ export class ControlMenuComponent implements OnInit {
 
   refreshMenu(){
     this.dataService.getMenu().subscribe({
-      next: (response: Menu[]) => {
+      next: (response: Menu2[]) => {
         this.menulist$ = response     
         
       }
@@ -190,6 +206,34 @@ export class ControlMenuComponent implements OnInit {
 
     this.showContactView = true;
   }
+
+  showOrdersButton(){ 
+    this.total=0;
+    this.dataService.getOrdersByUserId(this.qrUserOrders).subscribe({
+      next: (response: OrderFullData[]) => {     
+        this.orderUserList$ = response
+        this.itemsOrder$ = this.orderUserList$[this.orderUserList$.length-1].items
+       
+        for(let i=0; i<this.itemsOrder$.length;i++){
+          this.total=this.total+(this.itemsOrder$[i].item.price * this.itemsOrder$[i].quantity)
+        }
+        
+        console.log("data: "+this.orderUserList$)
+        
+        
+      },error:()=>{
+        this.errorShowOrdersMessage = false;
+      }
+    });
+    
+    this.showOrdersFormView = true;
+    
+    
+    console.log("ordini")
+  }
+
+
+  qrCodeOnKey(event){ this.qrUserOrders = event.target.value; }
 
   showContactOnKey(event){ this.contactDay = event.target.value; }
 

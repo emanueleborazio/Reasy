@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Login } from '../login.model';
-import { Menu } from '../menu.model';
+import { Menu2 } from '../menu2.model';
 import { Message } from '../message.model';
 import { Resturant } from '../resturant.model';
 import { User } from '../user.model';
@@ -45,6 +45,8 @@ export class DataService {
   apiUrlModStore = '/store/info';
   apiUrlDeleteItemMenu = '/store/item/';
   apiUrlShowContact = '/store/users/';
+  apiUrlShowOrdersByUserId = '/store/orders/';
+
 
   ////servizi per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
@@ -85,7 +87,7 @@ export class DataService {
   }
   //servizio per leggere il menù
   getMenu(): Observable<any> {
-    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenu);
+    return this.http.get<Menu2[]>(this.urlBase + this.apiUrlMenu);
   }
   //servizio per modificare nome e città del ristorante
   getModStore(data): Observable<any> {
@@ -95,17 +97,22 @@ export class DataService {
   setAuthUser(data): Observable<any> {
     return this.http.post<any>(this.urlBase + this.apiUrlSetAuth, data); //multipart
   }
+  //servizio per mostrare gli accessi al ristorante
   getShowContact(day): Observable<any> {
     if(day===undefined)
       return this.http.get<Contact[]>(this.urlBase + this.apiUrlShowContact);
     else
       return this.http.get<Contact[]>(this.urlBase + this.apiUrlShowContact + day); //multipart
   }
+  //servizio per mostrare l'ordine
+  getOrdersByUserId(qrUser): Observable<any>{
+    return this.http.get<any>(this.urlBase + this.apiUrlShowOrdersByUserId + qrUser)
+  }
 
 
   ////servizi per UTENTE e CUCINA//////////////////////////////////////////////////////////
   getMenuByQr(code): Observable<any> {
-    return this.http.get<Menu[]>(this.urlBase + this.apiUrlMenuByQr + code);
+    return this.http.get<Menu2[]>(this.urlBase + this.apiUrlMenuByQr + code);
   }
 
   ////serivizi per TUTTI//////////////////////////////////////////////////////////////////

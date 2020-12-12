@@ -1,9 +1,10 @@
-import { Voce } from './voce.model';
+import { Menu } from './menu.model';
+
 
 export class Item{
     id: number;
     name: string;
     price: number;
-    menu: Voce;
+    menu: Menu;
     enabled: boolean;
 }
