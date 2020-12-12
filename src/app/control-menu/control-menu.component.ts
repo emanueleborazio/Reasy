@@ -159,9 +159,6 @@ export class ControlMenuComponent implements OnInit {
 
   refreshMenu(){
 
-
-    
-
     this.dataService.getMenu().subscribe({
       next: (response: ResturantMenu) => {
         this.menulist$ = response  

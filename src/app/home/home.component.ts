@@ -47,7 +47,9 @@ export class HomeComponent implements OnInit {
 
   }
 
-  get f() { return this.loginForm.controls; }
+  get f() { 
+    return this.loginForm.controls; 
+  }
 
   onSubmit() {
     
@@ -57,6 +59,7 @@ export class HomeComponent implements OnInit {
         next: () => {
           // get return url from query parameters or default to home page
           console.log("ruolo: " + localStorage.getItem('role'))
+          
 
           if (localStorage.getItem('role') === 'ROLE_UTENTE') {
             this.router.navigate(['lista']);
@@ -74,7 +77,7 @@ export class HomeComponent implements OnInit {
           this.errorAccess = true;
         }
       });
-
+     
 
 
   }

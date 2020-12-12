@@ -1,38 +1,147 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!---------------------------->
+<!--------prima view---------->
+<!---------------------------->
+<div *ngIf="!resturantView && !orderView" class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-
-
-  <div *ngIf="resturantView" class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Tabs Titles -->
-  
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
-        <h1>REASY</h1>
-        <h2>Elenco ristoranti</h2>
-      </div>
-  
-      <!-- Login Form -->
-      <form>
-        <div *ngFor='let resturant of resturantList$'>
-          <a class="nav-link" routerLink="/menu/{{resturant.qrcode}}" routerLinkActive="active"> {{resturant.name}} </a>
-        </div>
-      </form>
-
-      <div *ngIf="errorEmpty" class="alert alert-warning" role="alert">
-        l'Username o la Password sono vuoti
-      </div>
-  
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
-        
-        <input type="text" id="codRes" cclass="underlineHover" name="codRes" placeholder="Inserisci il codice del ristorante" (keyup)="codeResturantOnKey($event)">
-        <input type="submit" class="underlineHover" value="Cerca" (click)="cerca()">
-      </div>
-  
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+      <h3 class="textblue">{{nameUser}}</h3>
     </div>
-  </div>
 
+    <!-- Login Form -->
+    <form>
+      <div>
+        <table class="table" style="text-align:center;">
+          <tr>
+            <td><button type="button" class="btn btn-success btn-lg btn-block" (click)="newOrder()">Effettua un nuovo ordine</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn btn-dark btn-lg btn-block" (click)="oldOrder()">Ordini effettuati</button></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+    <div *ngIf="errorEmpty" class="alert alert-warning" role="alert">
+      l'Username o la Password sono vuoti
+    </div>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+
+      <input type="text" id="codRes" cclass="underlineHover" name="codRes"
+        placeholder="Inserisci il codice del ristorante" (keyup)="codeResturantOnKey($event)">
+      <input type="submit" class="underlineHover" value="Cerca" (click)="cerca()">
+    </div>
+
+  </div>
+</div>
+<!---------------------------->
+<!--------resturant list------>
+<!---------------------------->
+  
+<div *ngIf="resturantView" class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+      <h2>Elenco ristoranti</h2>
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <div *ngFor='let resturant of resturantList$'>
+        <a class="nav-link" routerLink="/menu/{{resturant.qrcode}}" routerLinkActive="active"> {{resturant.name}} </a>
+      </div>
+    </form>
+
+    <div *ngIf="errorEmpty" class="alert alert-warning" role="alert">
+      l'Username o la Password sono vuoti
+    </div>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+
+      <input type="text" id="codRes" cclass="underlineHover" name="codRes"
+        placeholder="Inserisci il codice del ristorante" (keyup)="codeResturantOnKey($event)">
+      <input type="submit" class="underlineHover" value="Cerca" (click)="cerca()">
+    </div>
+
+  </div>
+</div>
+
+<!---------------------------->
+<!--------storico ordini------>
+<!---------------------------->
+  
+<div *ngIf="orderView" class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+      <h1>REASY</h1>
+     
+    </div>
+    <div *ngIf='errorShowOrdersMessage' class="alert alert-warning" role="alert">
+      Errore nella visualizzazione degli ordini
+    </div>
+    <!-- Login Form -->
+    <h3>Ordini: {{nameTable}}</h3>
+        <form>
+          <div>
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">PIATTO</th>
+                  <th scope="col">PREZZO</th>
+                  <th scope="col">QUANTITA'</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let element of itemsOrder$; let i = index;'>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{element.item.name}}</td>
+                  <td>{{element.item.price}}€</td>
+                  <td>{{element.quantity}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Totale: {{total}}€</th>
+              </tfoot>
+            </table>
+          </div>
+        </form>
+
+   
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+
+      <input type="text" id="codRes" cclass="underlineHover" name="codRes"
+        placeholder="Inserisci il codice del ristorante" (keyup)="codeResturantOnKey($event)">
+      <input type="submit" class="underlineHover" value="Cerca" (click)="cerca()">
+    </div>
+
+  </div>
+</div>
+
+  
+
+
+  
