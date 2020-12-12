@@ -97,7 +97,69 @@
     <div *ngIf='errorShowOrdersMessage' class="alert alert-warning" role="alert">
       Errore nella visualizzazione degli ordini
     </div>
-    <!-- Login Form -->
+    <!-- Form -->
+    <h3>Ordini:</h3>
+        <form>
+          <div>
+            <table class="table" style="text-align:center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">DATA</th>
+                  <th scope="col">RISTORANTE</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let element of orderUserList$; let i = index;'>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{element.createdAt}}</td>
+                  <td>{{element.store.name}}</td>
+                  <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button"  class="btn btn-primary btn-lg" (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]' class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button></td>
+                  
+                  <div *ngIf='detailView[i]'>
+                    <!--<h3>Ordini: {{nameTable}}</h3>-->
+                        <form>
+                          <div>
+                            <table class="table" style="text-align:center;">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">PIATTO</th>
+                                  <th scope="col">PREZZO</th>
+                                  <th scope="col">QUANTITA'</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor='let element of itemsOrder$; let i = index;'>
+                                  <th scope="row">{{i+1}}</th>
+                                  <td>{{element.item.name}}</td>
+                                  <td>{{element.item.price}}€</td>
+                                  <td>{{element.quantity}}</td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th>Totale: {{total}}€</th>
+                              </tfoot>
+                            </table>
+                          </div>
+                        </form>
+                      </div>
+                
+                
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+
+
+
+<!--
+<div *ngIf='showDetailView'>
     <h3>Ordini: {{nameTable}}</h3>
         <form>
           <div>
@@ -127,7 +189,8 @@
             </table>
           </div>
         </form>
-
+      </div>
+  -->  
    
 
     <!-- Remind Passowrd -->

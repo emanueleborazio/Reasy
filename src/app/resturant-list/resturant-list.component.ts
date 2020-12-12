@@ -13,6 +13,8 @@ import { DataService } from '../services/data.service';
 export class ResturantListComponent implements OnInit {
   resturantView: boolean = false
   orderView: boolean = false
+  showDetailView: boolean = false
+  detailView: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 
   resturantList$: Resturant[];
   orderUserList$: OrderFullData[];
@@ -21,7 +23,6 @@ export class ResturantListComponent implements OnInit {
   errorShowOrdersMessage: boolean
 
   codeResturant: string;
-  qrUser: any;
   total: number;
   nameTable: string;
   nameUser: string;
@@ -46,21 +47,24 @@ export class ResturantListComponent implements OnInit {
         
         console.log("qrCode utente: "+res)
         localStorage.setItem("myQr",res)
-        this.qrUser = res
+        
       },
       (err) => console.log(err)
     );
 
-    this.dataService.getOrdersByUserId(this.qrUser).subscribe({
+    this.dataService.getOrdersByUserId(0).subscribe({
       next: (response: OrderFullData[]) => {     
         this.orderUserList$ = response
         this.itemsOrder$ = this.orderUserList$[this.orderUserList$.length-1].items
        
+        /*
+
         for(let i=0; i<this.itemsOrder$.length;i++){
           this.total=this.total+(this.itemsOrder$[i].item.price * this.itemsOrder$[i].quantity)
+          
         }
-        
-        this.nameTable = this.orderUserList$[this.orderUserList$.length-1].note
+       */
+        //this.nameTable = this.orderUserList$[this.orderUserList$.length-1].note
         
         
         
@@ -73,6 +77,8 @@ export class ResturantListComponent implements OnInit {
     let n = email.indexOf("@")
     this.nameUser = email.substring(0,n)
 
+    this.total=0
+
 
   }
 
@@ -84,6 +90,13 @@ export class ResturantListComponent implements OnInit {
     this.orderView = true;
   }
 
+  showDetail(i){
+    this.detailView[i] = true
+  }
+
+  hideDetail(i){
+    this.detailView[i] = false
+  }
 
   codeResturantOnKey(event) { this.codeResturant = event.target.value; }
 
