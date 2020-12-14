@@ -20,10 +20,12 @@
       <div>
         <table class="table" style="text-align:center;">
           <tr>
-            <td><button type="button" class="btn btn-success btn-lg btn-block" (click)="newOrder()">Effettua un nuovo ordine</button></td>
+            <td><button type="button" class="btn btn-success btn-lg btn-block" (click)="newOrder()">Effettua un nuovo
+                ordine</button></td>
           </tr>
           <tr>
-            <td><button type="button" class="btn btn-dark btn-lg btn-block" (click)="oldOrder()">Ordini effettuati</button></td>
+            <td><button type="button" class="btn btn-dark btn-lg btn-block" (click)="oldOrder()">Ordini
+                effettuati</button></td>
           </tr>
         </table>
       </div>
@@ -46,7 +48,7 @@
 <!---------------------------->
 <!--------resturant list------>
 <!---------------------------->
-  
+
 <div *ngIf="resturantView" class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -83,7 +85,7 @@
 <!---------------------------->
 <!--------storico ordini------>
 <!---------------------------->
-  
+
 <div *ngIf="orderView" class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -92,73 +94,133 @@
     <div class="fadeIn first">
       <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
       <h1>REASY</h1>
-     
+
     </div>
     <div *ngIf='errorShowOrdersMessage' class="alert alert-warning" role="alert">
       Errore nella visualizzazione degli ordini
     </div>
     <!-- Form -->
     <h3>Ordini:</h3>
-        <form>
-          <div>
-            <table class="table" style="text-align:center;">
-              <thead>
+
+    <!--
+
+    <form>
+      <div>
+        <table class="table" style="text-align:center;">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">DATA</th>
+              <th scope="col">RISTORANTE</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let element of orderUserList$; let i = index;'>
+              <th scope="row">{{i+1}}</th>
+              <td>{{element.createdAt}}</td>
+              <td>{{element.store.name}}</td>
+              <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button" class="btn btn-primary btn-lg"
+                  (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]'
+                  class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button></td>
+
+            
+            <div *ngIf='detailView[i]'>
+            
+              <table class="table table-bordered">
+                
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">DATA</th>
-                  <th scope="col">RISTORANTE</th>
-                  <th scope="col"></th>
+                  <th scope="col">PIATTO</th>
+                  <th scope="col">PREZZO</th>
+                  <th scope="col">QUANTITA'</th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor='let element of orderUserList$; let i = index;'>
-                  <th scope="row">{{i+1}}</th>
-                  <td>{{element.createdAt}}</td>
-                  <td>{{element.store.name}}</td>
-                  <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button"  class="btn btn-primary btn-lg" (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]' class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button></td>
+
+                <tr *ngFor='let element of orderUserList$; let j = index;'>
+                  <th scope="row">{{j+1}}</th>
+                  <td>{{element.items[j-1].item.name}}</td>
+                  <td>{{element.items[j-1].price}}€</td>
+                  <td>{{element.items[j-1].quantity}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <th>{{totalList[i]}}</th>
+                </tr>
+
+              </table>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+-->
+<form>
+  <div>
+    <table class="table" style="text-align:center;">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">DATA</th>
+          <th scope="col">RISTORANTE</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor='let element of orderUserList$; let i = index;'>
+          <th scope="row">{{i+1}}</th>
+          <td>{{element.createdAt}}</td>
+          <td>{{element.store.name}}</td>
+          <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button" class="btn btn-primary btn-lg"
+              (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]'
+              class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button>
+            
+              <div *ngIf='detailView[i]'>
+        
+                <table class="table table-bordered">
                   
-                  <div *ngIf='detailView[i]'>
-                    <!--<h3>Ordini: {{nameTable}}</h3>-->
-                        <form>
-                          <div>
-                            <table class="table" style="text-align:center;">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">PIATTO</th>
-                                  <th scope="col">PREZZO</th>
-                                  <th scope="col">QUANTITA'</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor='let element of itemsOrder$; let i = index;'>
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{element.item.name}}</td>
-                                  <td>{{element.item.price}}€</td>
-                                  <td>{{element.quantity}}</td>
-                                </tr>
-                              </tbody>
-                              <tfoot>
-                                  <th></th>
-                                  <th></th>
-                                  <th></th>
-                                  <th>Totale: {{total}}€</th>
-                              </tfoot>
-                            </table>
-                          </div>
-                        </form>
-                      </div>
-                
-                
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PIATTO</th>
+                    <th scope="col">PREZZO</th>
+                    <th scope="col">QUANTITA'</th>
+                  </tr>
+      
+                  <tr *ngFor='let it of orderUserList$[i].items; let j = index;'>
+                    <th scope="row">{{j+1}}</th>
+                    <td>{{it.item.name}}</td>
+                    <td>{{it.item.price}}€</td>
+                    <td>{{it.quantity}}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>{{totalList[i]}}</th>
+                  </tr>
+      
+                </table>
+              </div>  
+            
+            
+          </td>
+
+       
+        
+      
+    </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
 
 
 
-<!--
+    <!--
 <div *ngIf='showDetailView'>
     <h3>Ordini: {{nameTable}}</h3>
         <form>
@@ -190,8 +252,8 @@
           </div>
         </form>
       </div>
-  -->  
-   
+  -->
+
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
@@ -203,8 +265,3 @@
 
   </div>
 </div>
-
-  
-
-
-  

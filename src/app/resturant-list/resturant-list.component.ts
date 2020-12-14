@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Item } from '../item.model';
 import { Items } from '../items.model';
 import { OrderFullData } from '../orderFullData.model';
 import { Resturant } from '../resturant.model';
@@ -18,7 +19,8 @@ export class ResturantListComponent implements OnInit {
 
   resturantList$: Resturant[];
   orderUserList$: OrderFullData[];
-  itemsOrder$: Items[];
+
+  totalList: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
   errorShowOrdersMessage: boolean
 
@@ -55,15 +57,19 @@ export class ResturantListComponent implements OnInit {
     this.dataService.getOrdersByUserId(0).subscribe({
       next: (response: OrderFullData[]) => {     
         this.orderUserList$ = response
-        this.itemsOrder$ = this.orderUserList$[this.orderUserList$.length-1].items
-       
-        /*
 
-        for(let i=0; i<this.itemsOrder$.length;i++){
-          this.total=this.total+(this.itemsOrder$[i].item.price * this.itemsOrder$[i].quantity)
+        this.orderUserList$.reverse();
+
+        for(let i=0; i<this.orderUserList$.length;i++){
+          this.total = 0
+          for(let j=0; j<this.orderUserList$[i].items.length;j++){
+            this.total=this.total+(this.orderUserList$[i].items[j].item.price * this.orderUserList$[i].items[j].quantity)
+          }
+
+          this.totalList[i] = this.total
           
         }
-       */
+       
         //this.nameTable = this.orderUserList$[this.orderUserList$.length-1].note
         
         
@@ -72,6 +78,12 @@ export class ResturantListComponent implements OnInit {
         this.errorShowOrdersMessage = false;
       }
     });
+
+
+    
+   
+     
+
 
     let email = localStorage.getItem("user")
     let n = email.indexOf("@")
