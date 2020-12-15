@@ -48,9 +48,12 @@ export class DataService {
   apiUrlShowContact = '/store/users/';
   apiUrlShowOrdersByUserId = '/store/orders/';
 
+  //url per CUCINA
+  apiUrlOrders= '/store/orders';
 
-  ////servizi per UTENTE e CUCINA
+  //url per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
+  
 
   //url per TUTTI
   apiUrlSignUp = '/api/auth/signup';
@@ -70,6 +73,11 @@ export class DataService {
   }
   getAuthUser(idResturant): Observable<any> {
     return this.http.get<any>(this.urlBase + this.apiUrlGetAuth + idResturant);
+  }
+
+  ////servizi per CUCINA////////////////////////////////////////////////////////////////////
+  getOrdersList(): Observable<any>{
+    return this.http.get<any>(this.urlBase + this.apiUrlOrders);
   }
 
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////

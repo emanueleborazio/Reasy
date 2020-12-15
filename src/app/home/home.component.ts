@@ -68,8 +68,7 @@ export class HomeComponent implements OnInit {
             this.router.navigate(['ristoratore']);
           }
           if (localStorage.getItem('role') === 'ROLE_CUCINA') {
-            //TODO
-            //this.router.navigate(['']);
+            this.router.navigate(['cucina']);
           }
         },
         error: error => {

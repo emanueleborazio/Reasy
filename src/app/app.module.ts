@@ -12,6 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AnQrcodeModule } from 'an-qrcode';
 import { ControlMenuComponent } from './control-menu/control-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderManagementComponent } from './order-management/order-management.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ResturantListComponent,
     HomeComponent,
     MenuComponent,
-    ControlMenuComponent
+    ControlMenuComponent,
+    OrderManagementComponent
   ],
   imports: [
     BrowserModule,

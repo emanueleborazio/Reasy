@@ -1,0 +1,133 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!---------------------------->
+<!--------prima view---------->
+<!---------------------------->
+<div *ngIf="!manageOrderView && !authView && !resturantListView" class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+        <h3 class="textblue">{{nameUser}}</h3>
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <div>
+          <table class="table" style="text-align:center;">
+            <tr>
+              <td>
+                  <div *ngIf="!noRes"><button type="button" class="btn btn-success btn-lg btn-block" (click)="resturantList()">Gestisci ordini</button> </div>
+                  <div *ngIf="noRes"><button type="button" class="btn btn-light btn-lg btn-block" >Gestisci ordini - Non hai ristoranti associati</button> </div>
+              </td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn btn-dark btn-lg btn-block" (click)="authorization()">Ottieni l'autorizzazione</button></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+
+      <!-- Remind Passowrd -->
+    <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+  
+    </div>
+  </div>
+
+<!---------------------------->
+<!--------auth view ---------->
+<!---------------------------->
+<div *ngIf="authView" class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+        
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+              <h3>Codice qr personale: {{myQr}}</h3>
+              <qrcode [level]="1" [qrvalue]="myQr"></qrcode>
+      </form>
+
+      <!-- Remind Passowrd -->
+    <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+  
+    </div>
+  </div>
+
+<!---------------------------->
+<!--------manage order-------->
+<!---------------------------->
+<div *ngIf="manageOrderView" class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+        
+      </div>
+      <h1>in construzione</h1>
+      <!-- Login Form -->
+      <form>
+              
+      </form>
+
+      <!-- Remind Passowrd -->
+    <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+    </div>
+  
+    </div>
+  </div>
+
+<!---------------------------->
+<!--------resturant list------>
+<!---------------------------->
+
+<div *ngIf="resturantListView" class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
+        <h1>REASY</h1>
+        <h2>Elenco ristoranti</h2>
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <div *ngIf='!noOrd'>
+        <div *ngFor='let order of orderUserList$'>
+          <button type="button" class="btn btn-link btn-lg btn-block" (click)="openOrder(order.id)"> {{order.store.name}}</button>
+        </div>
+        </div>
+        <div *ngIf='noOrd'>
+            <h3>Non ci sono ordini...</h3>
+        </div>
+      </form>
+  
+        
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      </div>
+  
+    </div>
+  </div>
+  

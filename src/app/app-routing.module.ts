@@ -3,13 +3,15 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { ControlMenuComponent } from './control-menu/control-menu.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
 import { ResturantListComponent } from './resturant-list/resturant-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'lista', component: ResturantListComponent },
   { path: 'ristoratore', component:  ControlMenuComponent},
-  { path: 'menu/:qr', component: MenuComponent }
+  { path: 'menu/:qr', component: MenuComponent },
+  { path: 'cucina', component: OrderManagementComponent }
 ];
 
 @NgModule({
