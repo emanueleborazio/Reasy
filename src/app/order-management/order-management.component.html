@@ -79,12 +79,63 @@
       <div class="fadeIn first">
         <img src="https://logopond.com/logos/6f87585d2d455fd855adb03e3bf2fc43.png" id="icon" alt="User Icon" />
         <h1>REASY</h1>
-        
+        <h3 class="textblue">{{resturantName}}</h3>
       </div>
-      <h1>in construzione</h1>
+      
       <!-- Login Form -->
       <form>
-              
+        <div>
+          <table class="table" style="text-align:center;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">DATA</th>
+                <th scope="col">TAVOLO</th>
+                <th scope="col">STATO</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+  
+              <tr *ngFor='let element of orderUserList$; let i = index;'>
+                <th scope="row">{{i+1}}</th>
+                <td>{{element.createdAt}}</td>
+                <td>{{element.note}}</td>
+                <td>
+                  <button *ngIf='closeOrderList[i]===0' type="button" class="btn btn-primary btn-lg"
+                  (click)="workingOrder(i)">In lavorazione</button>
+                  <button type="button" *ngIf='closeOrderList[i]===1'
+                  class="btn btn-success btn-lg" (click)="closeOrder(i)">Evaso</button>
+                </td>
+                <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button" class="btn btn-primary btn-lg"
+                    (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]'
+                    class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button>
+  
+                  <div *ngIf='detailView[i]'>
+  
+                    <table class="table table-bordered">
+  
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">PIATTO</th>
+                        <th scope="col">PREZZO</th>
+                        <th scope="col">QUANTITA'</th>
+                      </tr>
+  
+                      <tr *ngFor='let it of orderUserList$[i].items; let j = index;'>
+                        <th scope="row">{{j+1}}</th>
+                        <td>{{it.item.name}}</td>
+                        <td>{{it.item.price}}€</td>
+                        <td>{{it.quantity}}</td>
+                      </tr>
+                       
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </form>
 
       <!-- Remind Passowrd -->
@@ -114,7 +165,7 @@
       <form>
         <div *ngIf='!noOrd'>
         <div *ngFor='let order of orderUserList$'>
-          <button type="button" class="btn btn-link btn-lg btn-block" (click)="openOrder(order.id)"> {{order.store.name}} </button>
+          <button type="button" class="btn btn-link btn-lg btn-block" (click)="openOrder(order.store.id, order.store.name)"> {{order.store.name}} </button>
         </div>
         </div>
         <div *ngIf='noOrd'>

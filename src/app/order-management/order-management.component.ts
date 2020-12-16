@@ -22,10 +22,13 @@ export class OrderManagementComponent implements OnInit {
   resturantId: number;
   noRes: boolean;
   noOrd: boolean;
+  resturantName: string;
 
 
   orderUserList$: OrderFullData[];
-  orderUserListFull$: OrderFullData[];
+  orderUserListCustom$: OrderFullData[];
+  closeOrderList: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  detailView: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 
 
   constructor(
@@ -57,7 +60,6 @@ export class OrderManagementComponent implements OnInit {
     this.dataService.getOrdersList().subscribe({
       next: (response: OrderFullData[]) => {     
         this.orderUserList$ = response
-        //this.orderUserListFull$ = response
 
        // this.orderUserList$.reverse();
        //this.orderUserListFull$.reverse();
@@ -84,6 +86,7 @@ export class OrderManagementComponent implements OnInit {
           this.noRes = false;
           
           this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.createdAt.localeCompare(b.createdAt))
+          this.orderUserListCustom$ = this.orderUserList$
           this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.store.name.localeCompare(b.store.name))
         }else{
           this.noRes = true;
@@ -102,9 +105,12 @@ export class OrderManagementComponent implements OnInit {
     this.resturantListView = true;
   }
   
-  openOrder(resturantId){
+  openOrder(resturantId, resturantName){
     console.log("scelto ristorante con id: "+resturantId)
 
+    this.orderUserListCustom$ = this.orderUserListCustom$.filter(id => id.store.id === resturantId)
+
+    this.resturantName = resturantName
     this.resturantId = resturantId;
     this.manageOrderView = true;
 
@@ -112,5 +118,23 @@ export class OrderManagementComponent implements OnInit {
   authorization(){
     this.myQr = localStorage.getItem("myQr")
     this.authView = true;
+  }
+
+  workingOrder(i){
+    //todo call service
+
+    this.closeOrderList[i] = 1
+  }
+  closeOrder(i){
+    //todo
+    this.closeOrderList[i] = 2
+  }
+
+  showDetail(i){
+    this.detailView[i] = true
+  }
+
+  hideDetail(i){
+    this.detailView[i] = false
   }
 }
