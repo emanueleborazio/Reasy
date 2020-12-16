@@ -22,7 +22,7 @@
             <tr>
               <td>
                   <div *ngIf="!noRes"><button type="button" class="btn btn-success btn-lg btn-block" (click)="resturantList()">Gestisci ordini</button> </div>
-                  <div *ngIf="noRes"><button type="button" class="btn btn-light btn-lg btn-block" >Gestisci ordini - Non hai ristoranti associati</button> </div>
+                  <div *ngIf="noRes"><button type="button" class="btn btn-light btn-lg btn-block" >Gestisci ordini - Non hai ristoranti associati o non ci sono ordini</button> </div>
               </td>
             </tr>
             <tr>
@@ -114,7 +114,7 @@
       <form>
         <div *ngIf='!noOrd'>
         <div *ngFor='let order of orderUserList$'>
-          <button type="button" class="btn btn-link btn-lg btn-block" (click)="openOrder(order.id)"> {{order.store.name}}</button>
+          <button type="button" class="btn btn-link btn-lg btn-block" (click)="openOrder(order.id)"> {{order.store.name}} </button>
         </div>
         </div>
         <div *ngIf='noOrd'>

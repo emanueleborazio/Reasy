@@ -57,10 +57,10 @@ export class OrderManagementComponent implements OnInit {
     this.dataService.getOrdersList().subscribe({
       next: (response: OrderFullData[]) => {     
         this.orderUserList$ = response
-        this.orderUserListFull$ = response
+        //this.orderUserListFull$ = response
 
-        this.orderUserList$.reverse();
-        this.orderUserListFull$.reverse();
+       // this.orderUserList$.reverse();
+       //this.orderUserListFull$.reverse();
 
 
         var today = new Date();
@@ -70,11 +70,21 @@ export class OrderManagementComponent implements OnInit {
 
         var todayS = yyyy + '-' + mm + '-' + dd + 'T00:00:01';
 
+        this.orderUserList$ = this.orderUserList$.filter(oggi => oggi.createdAt > todayS)
+        this.orderUserList$ = this.orderUserList$.filter(oggi => oggi.items.filter( todo => todo.status === "In carico"))
+
+        this.orderUserList$ = this.orderUserList$.filter((thing, index, self) =>
+            index === self.findIndex((t) => (
+             t.id === thing.id
+        ))
+      )
+        
+
         if(this.orderUserList$.length>0){
           this.noRes = false;
-          this.orderUserList$ = this.orderUserList$.filter(oggi => oggi.createdAt > todayS)
-            
-
+          
+          this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.createdAt.localeCompare(b.createdAt))
+          this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.store.name.localeCompare(b.store.name))
         }else{
           this.noRes = true;
         }
