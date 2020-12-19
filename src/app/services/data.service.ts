@@ -50,6 +50,7 @@ export class DataService {
 
   //url per CUCINA
   apiUrlOrders= '/store/orders';
+  apiUrlModItemOrder= '/order/item/modify';
 
   //url per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
@@ -76,8 +77,13 @@ export class DataService {
   }
 
   ////servizi per CUCINA////////////////////////////////////////////////////////////////////
+  //servizio per visionare tutti gli ordini di tutti i ristoranti a cui si è collegati
   getOrdersList(): Observable<any>{
     return this.http.get<any>(this.urlBase + this.apiUrlOrders);
+  }
+  //servizio epr modificare lo status
+  getModItemOrder(itemId, orderId, status): Observable<any> {
+    return this.http.post<any>(this.urlBase + this.apiUrlModItemOrder,  { itemId, orderId, status })
   }
 
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////

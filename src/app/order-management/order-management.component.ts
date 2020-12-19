@@ -30,6 +30,10 @@ export class OrderManagementComponent implements OnInit {
   closeOrderList: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   detailView: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 
+  resturantListWA: OrderFullData[]; //todo cambiare nel caso di lavoro su più ristoranti
+  
+  idOld: number = 0;
+
 
   constructor(
     private dataService: DataService,
@@ -60,6 +64,11 @@ export class OrderManagementComponent implements OnInit {
     this.dataService.getOrdersList().subscribe({
       next: (response: OrderFullData[]) => {     
         this.orderUserList$ = response
+        this.resturantListWA = response
+
+        //workaround
+        this.resturantListWA = this.resturantListWA.filter(idR => idR.id === this.resturantListWA[0].id)
+
 
        // this.orderUserList$.reverse();
        //this.orderUserListFull$.reverse();
@@ -80,7 +89,9 @@ export class OrderManagementComponent implements OnInit {
              t.id === thing.id
         ))
       )
-        
+      
+        this.orderUserList$ = this.orderUserList$.filter(x => x.id
+        )
 
         if(this.orderUserList$.length>0){
           this.noRes = false;
@@ -113,6 +124,7 @@ export class OrderManagementComponent implements OnInit {
     this.resturantName = resturantName
     this.resturantId = resturantId;
     this.manageOrderView = true;
+    this.resturantListView = false;
 
   }
   authorization(){
@@ -127,6 +139,8 @@ export class OrderManagementComponent implements OnInit {
   }
   closeOrder(i){
     //todo
+
+    this.orderUserList$ = this.orderUserList$.filter(rem => rem.id !== this.orderUserList$[i].id)
     this.closeOrderList[i] = 2
   }
 
