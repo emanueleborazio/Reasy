@@ -217,9 +217,6 @@ export class ControlMenuComponent implements OnInit {
         this.errorShowContactMessage = false;
       }
     });
-  
-
-
     this.showContactView = true;
   }
 

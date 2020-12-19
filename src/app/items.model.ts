@@ -6,4 +6,9 @@ export class Items{
     item: Item;
     status: string;
     quantity: number;
+
+
+    setStatus(status){
+        this.status = status
+    }
 }

@@ -82,8 +82,8 @@ export class DataService {
     return this.http.get<any>(this.urlBase + this.apiUrlOrders);
   }
   //servizio epr modificare lo status
-  getModItemOrder(itemId, orderId, status): Observable<any> {
-    return this.http.post<any>(this.urlBase + this.apiUrlModItemOrder,  { itemId, orderId, status })
+  getModItemOrder(data): Observable<any> {
+    return this.http.post<any>(this.urlBase + this.apiUrlModItemOrder,  data)
   }
 
   ////servizi per RISTORATORE///////////////////////////////////////////////////////////////

@@ -81,6 +81,11 @@
         <h1>REASY</h1>
         <h3 class="textblue">{{resturantName}}</h3>
       </div>
+
+      
+      <div *ngIf='errorModItemMessage' class="alert alert-warning" role="alert">
+        Errore durante modifica status
+      </div>
       
       <!-- Login Form -->
       <form>
@@ -101,9 +106,11 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{element.createdAt}}</td>
                 <td>{{element.note}}</td>
-                <td style="text-align:right;"><button *ngIf='!detailView[i]' type="button" class="btn btn-primary btn-lg"
-                  (click)="showDetail(i)">Dettaglio</button><button type="button" *ngIf='detailView[i]'
-                  class="btn btn-dark btn-lg" (click)="hideDetail(i)">Chiudi</button>
+                <td style="text-align:right;">
+                  <button *ngIf='!detailView[i]' type="button" class="btn btn-dark"
+                  (click)="showDetail(i)">Dettaglio</button>
+                  <button type="button" *ngIf='detailView[i]'
+                  class="btn btn-secondary" (click)="hideDetail(i)">Chiudi</button>
 
                 <div *ngIf='detailView[i]'>
 
@@ -114,6 +121,7 @@
                       <th scope="col">PIATTO</th>
                       <th scope="col">PREZZO</th>
                       <th scope="col">QUANTITA'</th>
+                      <th scope="col">STATO</th>
                     </tr>
 
                     <tr *ngFor='let it of orderUserList$[i].items; let j = index;'>
@@ -121,19 +129,23 @@
                       <td>{{it.item.name}}</td>
                       <td>{{it.item.price}}€</td>
                       <td>{{it.quantity}}</td>
+                      <td>
+                        <button *ngIf='orderUserList$[i].items[j].status == "In carico"' type="button" class="btn btn-outline-info" (click)="modStatusItem(orderUserList$[i].items[j].id.itemid,orderUserList$[i].items[j].id.orderid,orderUserList$[i].items[j].status,i,j)">{{it.status}}</button>
+                        <button *ngIf='orderUserList$[i].items[j].status == "In preparazione"' type="button" class="btn btn-outline-warning" (click)="modStatusItem(orderUserList$[i].items[j].id.itemid,orderUserList$[i].items[j].id.orderid,orderUserList$[i].items[j].status,i,j)">{{it.status}}</button>
+                        <button *ngIf='orderUserList$[i].items[j].status == "Pronto"' type="button" class="btn btn-outline-success">{{it.status}}</button>
+                      </td>
                     </tr>
-                     
                   </table>
                 </div>
               </td>
                 <td>
-                  <button *ngIf='closeOrderList[i]===0' type="button" class="btn btn-primary btn-lg"
-                  (click)="workingOrder(i)">In corso</button>
-                  <button type="button" *ngIf='closeOrderList[i]===1'
-                  class="btn btn-success btn-lg" (click)="closeOrder(i)">Evaso</button>
-                  
+                  <button *ngIf='closeOrderList[i]===0' type="button" class="btn btn-info "
+                  (click)="preparationOrder(i)">In corso</button>
+                  <button *ngIf='closeOrderList[i]===1' type="button" class="btn btn-warning"
+                  (click)="readyOrder(i)">In preparazione</button>
+                  <button type="button" *ngIf='closeOrderList[i]===2'
+                  class="btn btn-danger " (click)="closeOrder(i)">Chiudi</button>
                 </td>
-                
               </tr>
             </tbody>
           </table>
