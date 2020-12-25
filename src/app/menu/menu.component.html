@@ -67,7 +67,7 @@
       <div *ngIf="!showQr">
         <input type="submit" class="fadeIn fourth" value="Richiedi Autorizzazione" (click)="autorizzazione()">
       </div>
-      <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      <a class="underlineHover" onClick="javascript:history.back()">Esci</a>
     </div>
 
   </div>
@@ -133,7 +133,7 @@
       <div>
         <input type="submit" class="fadeIn fourth" value="Invia Ordine" (click)="sendOrder()">
       </div>
-      <a class="underlineHover" onClick="javascript:history.back()">indietro</a>
+      <button type="button" class="btn btn-light" (click)="goBack()">Indietro</button>
     </div>
 
   </div>

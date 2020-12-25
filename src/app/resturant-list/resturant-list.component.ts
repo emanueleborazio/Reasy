@@ -117,4 +117,9 @@ export class ResturantListComponent implements OnInit {
     this.router.navigate(['menu/' + this.codeResturant]);
   }
 
+  goBack(){
+    this.resturantView = false
+    this.orderView = false
+  }
+
 }

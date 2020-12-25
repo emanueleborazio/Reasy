@@ -170,5 +170,10 @@ export class MenuComponent implements OnInit {
   public subTotalFunction(){
     return this.subTotal;
   }
+
+  goBack(){
+    this.authOrder = false
+    this.showSummary = false
+  }
   
 }

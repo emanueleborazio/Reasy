@@ -75,7 +75,7 @@ export class OrderManagementComponent implements OnInit {
         this.resturantListWA = this.resturantListWA.filter(idR => idR.id === this.resturantListWA[0].id)
 
 
-       // this.orderUserList$.reverse();
+        this.orderUserList$.reverse();
        //this.orderUserListFull$.reverse();
 
 
@@ -95,13 +95,12 @@ export class OrderManagementComponent implements OnInit {
         ))
       )
       
-        this.orderUserList$ = this.orderUserList$.filter(x => x.id
-        )
+        //this.orderUserList$ = this.orderUserList$.filter(x => x.id)
 
         if(this.orderUserList$.length>0){
           this.noRes = false;
           
-          this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.createdAt.localeCompare(b.createdAt))
+          this.orderUserList$ = this.orderUserList$.sort((a,b)=>b.createdAt.localeCompare(a.createdAt))
           this.orderUserListCustom$ = this.orderUserList$
           this.orderUserList$ = this.orderUserList$.sort((a,b)=>a.store.name.localeCompare(b.store.name))
 
@@ -162,7 +161,7 @@ export class OrderManagementComponent implements OnInit {
     //todo
 
     this.orderUserList$ = this.orderUserList$.filter(rem => rem.id !== this.orderUserList$[i].id)
-    this.closeOrderList[i] = 3
+    //this.closeOrderList[i] = 3
   }
 
   modStatusItem(itemId, orderId, status, i, j){
@@ -218,6 +217,12 @@ export class OrderManagementComponent implements OnInit {
 
     if(preparation == this.orderUserList$[i].items.length) this.closeOrderList[i]=1
     if(ready == this.orderUserList$[i].items.length) this.closeOrderList[i]=2
+  }
+
+  goBack(){
+    this.manageOrderView = false
+    this.authView = false
+    this.resturantListView = false
   }
 
 

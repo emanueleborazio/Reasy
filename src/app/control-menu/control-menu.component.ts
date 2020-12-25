@@ -246,6 +246,14 @@ export class ControlMenuComponent implements OnInit {
     console.log("ordini")
   }
 
+  goBack(){
+    this.editMenuView = false;
+    this.editResturantView = false;
+    this.authUserView = false;
+    this.showContactFormView = false;
+    this.showOrdersByUserId = false;
+  }
+
 
   qrCodeOnKey(event){ this.qrUserOrders = event.target.value; }
 
