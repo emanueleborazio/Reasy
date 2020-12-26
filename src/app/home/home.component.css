@@ -18,4 +18,18 @@ input[type=password] {
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
   }
+
+
+ .social-btn-icon{
+    height: 18px;
+    
+  }
+.login-Btn{
+  font-size: 15px;
+  font-weight: bold;
+  background-color: aliceblue;
+  border: 2px solid black;
+  height: 40px;
+}
+
   

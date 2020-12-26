@@ -7,6 +7,8 @@ import { first } from 'rxjs/operators';
 import { Login } from '../login.model';
 import { DataService } from '../services/data.service';
 import { User } from '../user.model';
+import { ViewChild,ElementRef } from '@angular/core'
+
 
 @Component({
   selector: 'app-home',
@@ -14,6 +16,9 @@ import { User } from '../user.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('loginRef', {static: true }) loginElement: ElementRef;
+
+
   [x: string]: any;
   users$: User[];
   risposta$: Message;
@@ -42,6 +47,7 @@ export class HomeComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    this.googleInitialize();
 
 
 
@@ -76,10 +82,72 @@ export class HomeComponent implements OnInit {
           this.errorAccess = true;
         }
       });
-     
+  }
+  
+  googleInitialize() {
+    window['googleSDKLoaded'] = () => {
+      window['gapi'].load('auth2', () => {
+        this.auth2 = window['gapi'].auth2.init({
+          client_id: '998339999841-ie7hs502m3rtjfnvei0lqk7cvalm5ctf.apps.googleusercontent.com',
+          cookie_policy: 'single_host_origin',
+          scope: 'profile email'
+        });
+        this.prepareLogin();
+      });
+    }
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'google-jssdk'));
+  }
 
+  prepareLogin() {
+    this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
+      (googleUser) => {
+        let profile = googleUser.getBasicProfile();
+        console.log('Token || ' + googleUser.getAuthResponse().id_token);
+        localStorage.setItem("googleToken",googleUser.getAuthResponse().id_token)
+        this.show = true;
+        this.Name =  profile.getName();
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
 
+    ///
+
+    this.dataService.getSingInGoogle(localStorage.getItem("googleToken"))
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          // get return url from query parameters or default to home page
+          console.log("ruolo: " + localStorage.getItem('role'))
+          
+
+          if (localStorage.getItem('role') === 'ROLE_UTENTE') {
+            this.router.navigate(['lista']);
+          }
+          if (localStorage.getItem('role') === 'ROLE_RISTORATORE') {
+            this.router.navigate(['ristoratore']);
+          }
+          if (localStorage.getItem('role') === 'ROLE_CUCINA') {
+            this.router.navigate(['cucina']);
+          }
+        },
+        error: error => {
+
+          this.errorAccess = true;
+        }
+      });
+
+    
   }
 
 
 }
+
+

@@ -59,6 +59,7 @@ export class DataService {
   //url per TUTTI
   apiUrlSignUp = '/api/auth/signup';
   apiUrlSignIn = '/api/auth/signin';
+  apiUrlSignInGoogle = '/api/auth/google';
   apiUrlElencoUtenti = '/user/users';
   apiUrlGetStores = '/store/stores';
 
@@ -152,8 +153,18 @@ export class DataService {
         return user;
       }));
   }
-  //TODO LOGIN CON GOOGLE
+  //serivizo LOGIN CON GOOGLE
+  getSingInGoogle(token){
+    return this.http.post<any>(this.urlBase + this.apiUrlSignInGoogle, { token })
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
 
+        localStorage.setItem('user', user.username)
+        localStorage.setItem('token', user.accessToken)
+        localStorage.setItem('role', user.roles[0])
+        return user;
+      }));
+  }
 
   //servizo che elenca gli account della piattaforma
   getUsers(): Observable<any> {

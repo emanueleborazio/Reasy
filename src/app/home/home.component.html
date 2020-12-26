@@ -3,7 +3,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -22,6 +21,14 @@
       <input type="submit" class="fadeIn fourth" value="Log In">
       </div>
     </form>
+    <div>
+      <button class="login-Btn" #loginRef>
+        Login with Google<img class="social-btn-icon" alt="Login with Google" src="https://hrcdn.net/fcore/assets/google-colored-20b8216731.svg">
+      </button>
+    </div>
+
+   
+
 
     <div *ngIf='errorEmpty' class="alert alert-warning" role="alert">
       l'Username o la Password sono vuoti
@@ -37,3 +44,4 @@
 
   </div>
 </div>
+
