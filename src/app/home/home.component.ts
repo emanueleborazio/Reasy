@@ -114,13 +114,8 @@ export class HomeComponent implements OnInit {
         this.Name =  profile.getName();
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-      }, (error) => {
-        alert(JSON.stringify(error, undefined, 2));
-      });
 
-    ///
-
-    this.dataService.getSingInGoogle(localStorage.getItem("googleToken"))
+        this.dataService.getSingInGoogle(googleUser.getAuthResponse().id_token)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -143,6 +138,16 @@ export class HomeComponent implements OnInit {
           this.errorAccess = true;
         }
       });
+
+
+
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
+
+    ///
+
+    
 
     
   }
