@@ -100,7 +100,7 @@ export class MenuComponent implements OnInit {
 
   checkAuthorization(){
 
-    // todo servizio non funzionante, momentanemanete sospeso
+    // todo servizio  momentanemanete sospeso
     this.subTotal = 0
     this.dataService.getAuthUser(this.idResturant).subscribe({
       next: (response: Boolean) => {
@@ -130,10 +130,6 @@ export class MenuComponent implements OnInit {
          this.total=this.total+(this.itemList$[i].price*this.quantity[i])
       }
     }
-
-
-
-
 
     console.log("ordine in corso: "+this.order)
 

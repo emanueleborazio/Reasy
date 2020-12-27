@@ -115,11 +115,14 @@ export class HomeComponent implements OnInit {
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
 
-        this.dataService.getSingInGoogle(googleUser.getAuthResponse().id_token)
+        
+        let token = googleUser.getAuthResponse().id_token
+        let clientId = "998339999841-ie7hs502m3rtjfnvei0lqk7cvalm5ctf.apps.googleusercontent.com"
+
+        this.dataService.getSingInGoogle(token,clientId)
       .pipe(first())
       .subscribe({
         next: () => {
-          // get return url from query parameters or default to home page
           console.log("ruolo: " + localStorage.getItem('role'))
           
 
@@ -140,14 +143,9 @@ export class HomeComponent implements OnInit {
       });
 
 
-
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
       });
-
-    ///
-
-    
 
     
   }

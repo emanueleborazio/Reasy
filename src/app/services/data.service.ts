@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { Order } from '../order.model';
 import { Contact } from '../contact.model';
 import { ResturantMenu } from '../resturantMenu.model';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -154,8 +155,11 @@ export class DataService {
       }));
   }
   //serivizo LOGIN CON GOOGLE
-  getSingInGoogle(token){
-    return this.http.post<any>(this.urlBase + this.apiUrlSignInGoogle, { token })
+  getSingInGoogle(token,clientId){
+    return this.http.post<any>(this.urlBase + this.apiUrlSignInGoogle,   {
+      "token": token,
+      "clientId": clientId
+    } )
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
 
