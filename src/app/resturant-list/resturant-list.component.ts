@@ -36,13 +36,16 @@ export class ResturantListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    //  if(sessionStorage.getItem("restView")==="si"){
+    
+   
+     
+    
+   
 
     this.resturantView = false;
     this.dataService.getStores()
       .subscribe(data => this.resturantList$ = data)
-    //  }
+    
 
     this.dataService.getMyQr().subscribe(
       (res) => {
@@ -72,17 +75,10 @@ export class ResturantListComponent implements OnInit {
        
         //this.nameTable = this.orderUserList$[this.orderUserList$.length-1].note
         
-        
-        
       },error:()=>{
         this.errorShowOrdersMessage = false;
       }
     });
-
-
-    
-   
-     
 
 
     let email = localStorage.getItem("user")

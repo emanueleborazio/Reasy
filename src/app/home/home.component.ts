@@ -39,6 +39,21 @@ export class HomeComponent implements OnInit {
     private readonly router: Router) { }
 
   ngOnInit() {
+    console.log(localStorage.getItem("Google"))
+    if(localStorage.getItem("Google")=="on"){
+      if (localStorage.getItem('role') === 'ROLE_UTENTE') {
+        this.router.navigate(['lista']);
+      }
+      if (localStorage.getItem('role') === 'ROLE_RISTORATORE') {
+        this.router.navigate(['ristoratore']);
+      }
+      if (localStorage.getItem('role') === 'ROLE_CUCINA') {
+        this.router.navigate(['cucina']);
+      }
+    }
+
+
+
     this.errorEmpty = false;
     this.statuSearch = false;
 
@@ -105,6 +120,7 @@ export class HomeComponent implements OnInit {
   }
 
   prepareLogin() {
+    
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => {
         let profile = googleUser.getBasicProfile();
@@ -124,17 +140,10 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: () => {
           console.log("ruolo: " + localStorage.getItem('role'))
+          localStorage.setItem("Google","on")
+          window.location.reload()
           
-
-          if (localStorage.getItem('role') === 'ROLE_UTENTE') {
-            this.router.navigate(['lista']);
-          }
-          if (localStorage.getItem('role') === 'ROLE_RISTORATORE') {
-            this.router.navigate(['ristoratore']);
-          }
-          if (localStorage.getItem('role') === 'ROLE_CUCINA') {
-            this.router.navigate(['cucina']);
-          }
+          
         },
         error: error => {
 
@@ -146,6 +155,8 @@ export class HomeComponent implements OnInit {
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
       });
+
+      
 
     
   }
