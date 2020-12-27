@@ -1,4 +1,5 @@
-import { Voce } from './voce.model';
+import { Voce } from "./voce.model";
+
 
 export class Resturant{
     id: number;

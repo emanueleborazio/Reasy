@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { nextTick } from 'process';
 import { first } from 'rxjs/operators';
-import { Login } from '../login.model';
+import { Login } from '../../model/login.model';
 import { DataService } from '../services/data.service';
-import { User } from '../user.model';
+import { User } from '../../model/user.model';
 import { ViewChild,ElementRef } from '@angular/core'
 
 
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log(localStorage.getItem("Google"))
     if(localStorage.getItem("Google")=="on"){
+      localStorage.setItem("Google","off")
       if (localStorage.getItem('role') === 'ROLE_UTENTE') {
         this.router.navigate(['lista']);
       }

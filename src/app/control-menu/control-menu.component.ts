@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Contact } from '../contact.model';
-import { Item } from '../item.model';
-import { Items } from '../items.model';
-import { Menu2 } from '../menu2.model';
-import { OrderFullData } from '../orderFullData.model';
-import { ResturantMenu } from '../resturantMenu.model';
+import { Item } from 'src/model/item.model';
+import { Items } from 'src/model/items.model';
+import { Contact } from '../../model/contact.model';
+import { Menu2 } from '../../model/menu2.model';
+import { OrderFullData } from '../../model/orderFullData.model';
+import { ResturantMenu } from '../../model/resturantMenu.model';
 import { DataService } from '../services/data.service';
 
 @Component({

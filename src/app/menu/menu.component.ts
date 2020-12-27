@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ParamMap, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Item } from '../item.model';
-import { Menu2 } from '../menu2.model';
-import { Order } from '../order.model';
-import { Resturant } from '../resturant.model';
+import { Item } from 'src/model/item.model';
+import { Menu2 } from '../../model/menu2.model';
+import { Order } from '../../model/order.model';
+import { Resturant } from '../../model/resturant.model';
 import { DataService } from '../services/data.service';
 
 @Component({

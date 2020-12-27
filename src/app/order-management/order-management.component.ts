@@ -1,9 +1,9 @@
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
-import { OrderFullData } from '../orderFullData.model';
-import { Resturant } from '../resturant.model';
+import { OrderFullData } from '../../model/orderFullData.model';
+import { Resturant } from '../../model/resturant.model';
 import { DataService } from '../services/data.service';
-import { Store } from '../store.model';
+import { Store } from '../../model/store.model';
 
 @Component({
   selector: 'app-order-management',

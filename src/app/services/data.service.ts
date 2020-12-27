@@ -2,15 +2,15 @@ import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpR
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Login } from '../login.model';
-import { Menu2 } from '../menu2.model';
-import { Message } from '../message.model';
-import { Resturant } from '../resturant.model';
-import { User } from '../user.model';
+import { Login } from '../../model/login.model';
+import { Menu2 } from '../../model/menu2.model';
+import { Message } from '../../model/message.model';
+import { Resturant } from '../../model/resturant.model';
+import { User } from '../../model/user.model';
 import { map } from 'rxjs/operators';
-import { Order } from '../order.model';
-import { Contact } from '../contact.model';
-import { ResturantMenu } from '../resturantMenu.model';
+import { Order } from '../../model/order.model';
+import { Contact } from '../../model/contact.model';
+import { ResturantMenu } from '../../model/resturantMenu.model';
 import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({

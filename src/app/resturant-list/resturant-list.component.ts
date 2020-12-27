@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Item } from '../item.model';
-import { Items } from '../items.model';
-import { OrderFullData } from '../orderFullData.model';
-import { Resturant } from '../resturant.model';
+import { OrderFullData } from '../../model/orderFullData.model';
+import { Resturant } from '../../model/resturant.model';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -37,11 +35,6 @@ export class ResturantListComponent implements OnInit {
 
   ngOnInit(): void {
     
-   
-     
-    
-   
-
     this.resturantView = false;
     this.dataService.getStores()
       .subscribe(data => this.resturantList$ = data)
