@@ -65,7 +65,7 @@
     <!-- Remind Passowrd -->
     <div id="formFooter">
       <div *ngIf="!showQr">
-        <input type="submit" class="fadeIn fourth" value="Richiedi Autorizzazione" (click)="autorizzazione()">
+        <button type="button" class="btn btn-success" (click)="autorizzazione()">Richiedi Autorizzazione</button>
       </div>
       <a class="underlineHover" onClick="javascript:history.back()">Esci</a>
     </div>
