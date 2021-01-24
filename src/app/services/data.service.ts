@@ -33,7 +33,7 @@ export class DataService {
   //url BASE
 
   //urlBase = 'http://reasy-be.herokuapp.com'
-  urlBase = 'http://80.211.235.235:8082'
+  urlBase = 'http://r-easy.it:8082'
 
   //url per UTENTE
   apiUrlSendOrder = '/order/send/';
@@ -55,7 +55,7 @@ export class DataService {
 
   //url per UTENTE e CUCINA
   apiUrlMenuByQr = '/store/qrcode/';
-  
+
 
   //url per TUTTI
   apiUrlSignUp = '/api/auth/signup';
@@ -95,7 +95,7 @@ export class DataService {
   }
   //servizio per eliminare un item dal menu
   deleteItemMenu(itemId): Observable<any> {
-    
+
     return this.http.delete<any>(this.urlBase + this.apiUrlDeleteItemMenu + itemId);
   }
   //servizio per ottenere il qr code
