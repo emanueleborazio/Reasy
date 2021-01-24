@@ -33,7 +33,7 @@ export class DataService {
   //url BASE
 
   //urlBase = 'http://reasy-be.herokuapp.com'
-  urlBase = 'http://r-easy.it:8082'
+  urlBase = 'http://80.211.235.235:8082'
 
   //url per UTENTE
   apiUrlSendOrder = '/order/send/';

@@ -69,19 +69,19 @@ export class HomeComponent implements OnInit {
 
   }
 
-  get f() { 
-    return this.loginForm.controls; 
+  get f() {
+    return this.loginForm.controls;
   }
 
   onSubmit() {
-    
+
     this.dataService.getSignIn(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
           // get return url from query parameters or default to home page
           console.log("ruolo: " + localStorage.getItem('role'))
-          
+
 
           if (localStorage.getItem('role') === 'ROLE_UTENTE') {
             this.router.navigate(['lista']);
@@ -99,12 +99,12 @@ export class HomeComponent implements OnInit {
         }
       });
   }
-  
+
   googleInitialize() {
     window['googleSDKLoaded'] = () => {
       window['gapi'].load('auth2', () => {
         this.auth2 = window['gapi'].auth2.init({
-          client_id: '998339999841-ie7hs502m3rtjfnvei0lqk7cvalm5ctf.apps.googleusercontent.com',
+          client_id: '182967694427-gspltj1b7amk6dlaqj1vjk8gv61qnoi6.apps.googleusercontent.com',
           cookie_policy: 'single_host_origin',
           scope: 'profile email'
         });
@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit {
   }
 
   prepareLogin() {
-    
+
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => {
         let profile = googleUser.getBasicProfile();
@@ -132,9 +132,9 @@ export class HomeComponent implements OnInit {
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
 
-        
+
         let token = googleUser.getAuthResponse().id_token
-        let clientId = "998339999841-ie7hs502m3rtjfnvei0lqk7cvalm5ctf.apps.googleusercontent.com"
+        let clientId = "182967694427-gspltj1b7amk6dlaqj1vjk8gv61qnoi6.apps.googleusercontent.com"
 
         this.dataService.getSingInGoogle(token,clientId)
       .pipe(first())
@@ -143,8 +143,8 @@ export class HomeComponent implements OnInit {
           console.log("ruolo: " + localStorage.getItem('role'))
           localStorage.setItem("Google","on")
           window.location.reload()
-          
-          
+
+
         },
         error: error => {
 
@@ -157,9 +157,9 @@ export class HomeComponent implements OnInit {
         alert(JSON.stringify(error, undefined, 2));
       });
 
-      
 
-    
+
+
   }
 
 
