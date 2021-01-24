@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
       window['gapi'].load('auth2', () => {
         this.auth2 = window['gapi'].auth2.init({
           client_id: '182967694427-gspltj1b7amk6dlaqj1vjk8gv61qnoi6.apps.googleusercontent.com',
-          cookie_policy: 'single_host_origin',
+          cookie_policy: 'www.r-easy.it',
           scope: 'profile email'
         });
         this.prepareLogin();
